@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="app_bar_height_image_detail">500dp</dimen>
+    <dimen name="app_bar_height_lesson_detail">250dp</dimen>
+    <dimen name="item_width">200dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="list_item_height">100dp</dimen>
+    <dimen name="detail_body_text_size">14sp</dimen>
+    <dimen name="byline_text_size">14dp</dimen>
+
+    <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">.9</item>
+    <dimen name="lesson_detail_title_text_size">20sp</dimen>
+    <dimen name="lesson_detail_body_text_size">14sp</dimen>
+    <dimen name="fab_elevation">6dp</dimen>
+    <dimen name="fab_press_translation_z">6dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_elevation">8dp</dimen>
+    <dimen name="toolbar_elevation">8dp</dimen>
+    <dimen name="appbar_layout_height">250dp</dimen>
+    <dimen name="main_activity_margin_end">24dp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
+
+</resources>

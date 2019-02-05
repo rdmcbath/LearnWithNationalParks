@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout android:id="@+id/frame_background_lesson_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/badlands"
+        android:scaleType="centerCrop"
+        android:alpha="0.7" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar"></include>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lesson_list_container">
+
+            <!-- Empty view is only visible when the recyclerView has no items. -->
+            <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/no_lesson_plans_found"
+                android:visibility="gone" />
+
+            <!-- Loading indicator is only shown before the first load -->
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loading_spinner"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:progressDrawable="@drawable/custom_progress_spinner"
+                style="ProgressBar.Spinner.Indeterminate.Large" />
+
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

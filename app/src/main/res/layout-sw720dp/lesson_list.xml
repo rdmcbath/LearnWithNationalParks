@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/linear_layout_tablet_lesson_list"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.rdm.android.learningwithnationalparks.activities.LessonListActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"></include>
+
+    <!--
+    This layout is a two-pane layout for the Items
+    master/detail flow.
+    -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:divider="?android:attr/dividerVertical"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <FrameLayout
+            android:id="@+id/lesson_list_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <FrameLayout
+            android:id="@+id/detail_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <ImageView
+                android:id="@+id/lesson_list_intro_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/volcano"
+                android:scaleType="centerCrop"
+                android:alpha="0.7" />
+
+            <TextView
+                android:id="@+id/lesson_list_intro_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_lesson_plan"
+                android:layout_gravity="center"
+                style="@style/TextAppearance.AppCompat.Large" />
+        </FrameLayout>
+
+    </LinearLayout>
+</LinearLayout>

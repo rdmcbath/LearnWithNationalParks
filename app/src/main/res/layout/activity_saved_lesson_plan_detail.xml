@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/saved_lessons_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Empty view is only visible when the recyclerView has no items. -->
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_lesson_plans_found"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

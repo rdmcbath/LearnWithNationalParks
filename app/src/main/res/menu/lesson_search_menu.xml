@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.LessonListActivity">
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        android:visible="true" />
+
+    <item
+        android:id="@+id/action_title_search"
+        android:orderInCategory="2"
+        android:title="@string/lesson_search_action_title"
+        app:showAsAction="collapseActionView" />
+
+    <item
+        android:id="@+id/action_subject_search"
+        android:orderInCategory="3"
+        android:title="@string/lesson_search_action_subject"
+        app:showAsAction="collapseActionView" />
+
+    <item
+        android:id="@+id/action_saved_search"
+        android:orderInCategory="3"
+        android:title="@string/lesson_search_action_saved"
+        app:showAsAction="collapseActionView" />
+</menu>

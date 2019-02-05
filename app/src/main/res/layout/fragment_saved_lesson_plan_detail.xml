@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/coordinator_layout_lesson_plan_detail"
+    tools:context="com.rdm.android.learningwithnationalparks.fragments.SavedLessonDetailFragment"
+    tools:ignore="MergeRootFrame">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height_lesson_detail"
+        android:elevation="@dimen/appbar_elevation"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
+            app:expandedTitleMarginStart="8dp"
+            app:expandedTitleMarginEnd="4dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="start"
+                android:layout_marginTop="14dp"
+                android:elevation="@dimen/toolbar_elevation"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+            <ImageView
+                android:id="@+id/lesson_detail_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/header_image"
+                android:scaleType="centerCrop"
+                android:fitsSystemWindows="true"
+                android:src="@drawable/grandcanyon"
+                app:layout_collapseParallaxMultiplier="0.9"
+                android:transitionName="@string/transition_photo"
+                app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/item_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/MainActivityStyle"
+            android:contentDescription="@string/web_content" />
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:contentDescription="@string/fab_save"
+        app:fabSize="mini"
+        android:stateListAnimator="@animator/fab_state_list_anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        app:layout_anchorGravity="top|end"
+        app:layout_anchor="@+id/item_detail_container"
+        android:layout_margin="@dimen/fab_margin"
+        app:rippleColor="#ff6d00"
+        app:backgroundTint="@color/category_lessons"
+        android:layout_marginEnd="32dp"
+        app:srcCompat="@drawable/ic_bookmark_border" />
+
+</android.support.design.widget.CoordinatorLayout>

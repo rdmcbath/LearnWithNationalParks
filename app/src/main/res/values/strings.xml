@@ -1,0 +1,143 @@
+<resources>
+    <string name="app_name">Learn with National Parks</string>
+    <string name="widget_name">National Park Service Photostream</string>
+    <string name="app_label">Learn with National Parks</string>
+    <string name="content_authority">com.rdm.android.learnwithnationalparks</string>
+
+    <!-- Strings for Main Activity -->
+    <string name="main_toolbar_title">Learn with National Parks</string>
+    <string name="main_lesson_plans_label">Lesson Plans by NPS</string>
+    <string name="main_sights_label">National Parks and Places on Flickr</string>
+    <string name="main_sounds_label">NPS Sound Gallery</string>
+    <string name="main_park_search_label">Get to a Park Near You!</string>
+    <string name="transition_photo">photoTransition</string>
+    <string name="content_image_main">MainActivity background image lighthouse</string>
+
+    <!-- Strings for ParkSearch Activities -->
+    <string name="title_activity_maps">Map</string>
+    <string name="title_location_permission">Location Permission Needed</string>
+    <string name="text_location_permission">Please accept to use this activity, and make sure phone settings have location enabled.</string>
+    <string name="ok">Got it</string>
+    <string name="park">park</string>
+    <string name="current_position">Current Position</string>
+    <string name="pick_park">Pick a park!</string>
+    <string name="permission_denied">Permission denied.</string>
+    <string name="current_location">Your Current Location</string>
+    <string name="location_enabled">Location enabled by user!</string>
+    <string name="location_not_enabled">Location not enabled, user cancelled.</string>
+    <string name="fab_find_nearby_parks">Find nearby parks button</string>
+
+    <!-- Strings for LessonPlan Activities -->
+    <string name="lesson_list_toolbar_title">Lesson Plans</string>
+    <string name="title_lesson_list">Lesson Plans</string>
+    <string name="no_network">No Network Found.</string>
+    <string name="sorted_by_title">Sorted by Title</string>
+    <string name="sorted_by_subject">Sorted by Subject</string>
+    <string name="select_lesson_plan">Select a lesson plan.</string>
+    <string name="header_image">Lesson Plan Header Image</string>
+    <string name="web_content">Web content for lesson plan</string>
+    <string name="fab_save">Save this lesson</string>
+
+    <!-- Strings for LessonList Menu: sort_by preference settings: default is sort by title -->
+    <string name="action_settings">Sort By</string>
+    <string name="lesson_search_action_title">Title (default)</string>
+    <string name="lesson_search_action_subject">Subject</string>
+    <string name="lesson_search_action_saved">Saved</string>
+
+    <string name="settings_sort_by_label">Sort By</string>
+    <string name="settings_sort_by_key" translatable="false">sort_by</string>
+    <string name="settings_sort_by_default" translatable="false">
+        @string/settings_sort_by_title_label</string>
+    <!-- Strings for sort_by title option  -->
+    <string name="settings_sort_by_title_label">Title</string>
+    <string name="settings_sort_by_title_value" translatable="false">Title</string>
+    <!-- Strings for sort_by objective option  -->
+    <string name="settings_sort_by_subject_label">Objective</string>
+    <string name="settings_sort_by_subject_value" translatable="false">Objective</string>
+    <!-- Strings for sort_by saved option  -->
+    <string name="settings_sort_by_saved_label">Saved</string>
+    <string name="settings_sort_by_saved_value" translatable="false">Saved</string>
+
+    <!-- Strings for SavedLesson Activities -->
+    <string name="saved_lesson_toolbar_title">Saved Lesson Plans</string>
+    <string name="no_lesson_plans_found">No Lesson Plans Found.</string>
+    <string name="saved_lesson_plans">Saved Lessons</string>
+    <string name="delete_all_saved_successful">All saved lessons deleted!</string>
+    <string name="delete_all">Delete All Saved Lessons</string>
+    <string name="warning_dialog_msg_all_saved">Delete all lessons from saved list?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="successfully_added">Lesson Saved</string>
+    <string name="delete_lesson_failed">Cannot delete: lesson was not saved</string>
+    <string name="delete_lesson_successful">Lesson Deleted</string>
+    <string name="nothing_to_delete">There were no saved lessons to delete.</string>
+
+    <!-- Strings for Images Activities -->
+    <string name="image_grid_toolbar_title">NPS Flickr Photostream</string>
+    <string name="title_sights_grid">NPS Flickr Photostream</string>
+    <string name="fab_share">Share this image</string>
+    <string name="no_image_found">No image found.</string>
+    <string name="no_images_found">No Images Found.</string>
+    <string name="flickr_image">Flickr Header Image</string>
+    <string name="flickr_card_image">Flickr Card Image</string>
+    <string name="flickr_widget_image">flickr_widget_image</string>
+    <string name="content_image">Image Content</string>
+    <string name="link_to_flickr_page">National Parks and Places on Flickr: https://www.flickr.com/groups/usnationalparksandplaces/members/</string>
+    <string name="extra_text_share">Great pic from the National Parks Group on Flickr!</string>
+
+    <!-- Strings for Sound Gallery Activities: Sounds Title  -->
+    <string name="sounds_toolbar_title">From NPS Sound Gallery</string>
+    <string name="title_sounds">NPS Sound Gallery</string>
+    <string name="anemone">Anemone Geyser</string>
+    <string name="paintpots">Artist Paint Pots</string>
+    <string name="eagle">Bald Eagle</string>
+    <string name="bison">Bison</string>
+    <string name="coyotes">Coyotes</string>
+    <string name="elk">Elk</string>
+    <string name="grizzly">Grizzly Bear</string>
+    <string name="fire">Maple Fire</string>
+    <string name="faithful">Old Faithful Geyser</string>
+    <string name="fox">Red Fox</string>
+    <string name="redsquirrel">Red Squirrel</string>
+    <string name="sandhillcranes">Sandhill Cranes</string>
+    <string name="toad">Spade Foot Toad</string>
+    <string name="thunder">Thunderstorm</string>
+    <string name="groundsquirrel">Uinta Ground Squirrel</string>
+    <string name="wolves">Wolves</string>
+    <string name="lake">Yellowstone Singing Lake</string>
+
+    <!-- Strings for Sound Gallery Activity: Sounds Description  -->
+    <string name="anemonedes">Yellowstone Big and Little Anemone Geyser eruption. Big Anemone Geyser
+        quickly fills with water, erupts, drains, followed by the longer eruption of Little
+        Anemone Geyser</string>
+    <string name="paintpotdes">Slurp, gurgle, plop: enjoy the unique sound of gasses venting into a pool of wet clay.
+        Yellowstone National Park in Wyomging.</string>
+    <string name="eagledes">Yellowstone National Park, Wyoming</string>
+    <string name="bisondes">Yellowstone National Park, Wyoming</string>
+    <string name="coyotedes">Mojave National Preserve, California</string>
+    <string name="elkdes">Bugling elk, Great Sand Dunes National Park and Preserve, Colorado</string>
+    <string name="grizzlydes">Grizzly vocalizations, Yellowstone National Park, Wyoming.</string>
+    <string name="firedes">This was recorded in Yellowstone, not far from a stand of small,
+        burning lodgepole pine trees. At about 14 seconds, a small clump of trees bursts into
+        flames.</string>
+    <string name="faithfuldes">Stereo recording of Old Faithful and wind moving through the evergreens
+        on an early spring day.</string>
+    <string name="foxdes">A red fox emits a series of yowls during a quiet night in Yellowstone.</string>
+    <string name="redsquirreldes">A Red Squirrel chatters. Red Squirrels are found throughout
+        Yellowstone, but typically live in spruce, fir and pine forests.</string>
+    <string name="cranedes">Sandhill cranes call out as they fly overhead, most
+        often found during the summer. Denali National Park and Preserve, Alaska</string>
+    <string name="toaddes">A chorus of uncommon spadefoot toads call during springtime;
+        They sing during breeding season, especially following heavy rains.</string>
+    <string name="thunderdes">Thunder, NPS Natural Sounds and Night Skies Division.</string>
+    <string name="groundsquirreldes">A Uinta ground squirrel emits a series of warning trills,
+        signaling danger nearby, in Yellowstone.</string>
+    <string name="wolfdes">Denali National Park and Preserve in Alaska</string>
+    <string name="lakedes">Listen to the rare, wintertime song of Yellowstone Lake as the ice reacts
+        to changing temperatures.</string>
+
+    <!-- Strings for API keys National Parks and Flickr  -->
+    <string name="api_key_nps">ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu</string>
+    <string name="api_key_flickr">88c1855d07cdbccd65b6825822f0ea90</string>
+
+</resources>

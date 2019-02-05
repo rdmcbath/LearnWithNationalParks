@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lesson_plan_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="?android:attr/dividerHorizontal"
+        android:showDividers="middle"
+        tools:context=".Fragments.LessonListFragment" />
+
+    <!-- Empty view is only visible when the recyclerView has no items. -->
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_lesson_plans_found"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:visibility="gone" />
+
+    <!-- Loading indicator -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:visibility="visible"
+        android:scaleX="0.2"
+        android:scaleY="0.2"
+        android:textColor="@color/colorAccent"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"/>
+
+</FrameLayout>

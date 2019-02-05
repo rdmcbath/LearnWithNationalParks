@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
+        android:alpha="0.6"
+        android:background="@drawable/lighthouse"
+        android:contentDescription="@string/content_image_main"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop" />
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/tool_bar"
+                layout="@layout/tool_bar"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp">
+
+                <ImageView
+                    android:id="@+id/lesson_plan_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_local_library_24dp" />
+
+                <TextView
+                    android:id="@+id/lesson_plan_text_view"
+                    style="@style/MainActivityStyle"
+                    android:layout_marginEnd="@dimen/main_activity_margin_end"
+                    android:background="@color/category_lessons"
+                    android:text="@string/main_lesson_plans_label"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/sights_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_local_see_24dp" />
+
+                <TextView
+                    android:id="@+id/sights_text_view"
+                    style="@style/MainActivityStyle"
+                    android:layout_marginEnd="@dimen/main_activity_margin_end"
+                    android:maxLines="2"
+                    android:ellipsize="none"
+                    android:background="@color/category_images"
+                    android:text="@string/main_sights_label"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/sounds_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_headset_24dp" />
+
+                <TextView
+                    android:id="@+id/sounds_text_view"
+                    style="@style/MainActivityStyle"
+                    android:layout_marginEnd="@dimen/main_activity_margin_end"
+                    android:background="@color/category_sounds"
+                    android:text="@string/main_sounds_label" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="24dp">
+
+                <ImageView
+                    android:id="@+id/park_search_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_streetview_24dp" />
+
+                <TextView
+                    android:id="@+id/search_text_view"
+                    style="@style/MainActivityStyle"
+                    android:layout_marginEnd="@dimen/main_activity_margin_end"
+                    android:background="@color/category_map"
+                    android:text="@string/main_park_search_label" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>

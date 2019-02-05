@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ff6d00</color>
+    <color name="colorPrimaryDark">#c43c00</color>
+    <color name="colorAccent">#d81b60</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Background color for the sounds category -->
+    <color name="category_sounds">#FD8E09</color>
+
+    <!-- Background color for the images category -->
+    <color name="category_images">#379237</color>
+
+    <!-- Background color for the lesson plan category -->
+    <color name="category_lessons">#8800A0</color>
+
+    <!-- Background color for the map category -->
+    <color name="category_map">#16AFCA</color>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/frame_saved_lesson_background_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/saved_lesson_List_image"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/utah"
+        android:scaleType="centerCrop"
+        android:alpha="0.7" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar">
+
+        </include>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/saved_lesson_list_container">
+
+            <!-- Empty view is only visible when the recyclerView has no items. -->
+            <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/no_lesson_plans_found"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:visibility="gone" />
+
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>
