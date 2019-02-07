@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FD8E09"
-        android:minHeight="@dimen/list_item_height"
+        android:baselineAligned="false" android:minHeight="@dimen/list_item_height"
         android:orientation="horizontal">
 
         <FrameLayout android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
                 android:layout_width="@dimen/list_item_height"
                 android:layout_height="@dimen/list_item_height"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:scaleType="centerCrop"
+                android:contentDescription="TODO" android:scaleType="centerCrop"
                 android:src="@drawable/wolves" />
 
             <ImageView
@@ -36,7 +36,7 @@
                 android:layout_height="@dimen/list_item_height"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:alpha="0.5"
-                android:src="@drawable/ic_play_circle_outline_24dp" />
+                android:contentDescription="TODO" android:src="@drawable/ic_play_circle_outline_24dp" />
         </FrameLayout>
 
         <LinearLayout android:id="@+id/description_container"

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:src="@drawable/badlands"
-        android:scaleType="centerCrop"
+        android:contentDescription="TODO" android:scaleType="centerCrop"
         android:alpha="0.7" />
 
     <LinearLayout

@@ -1,5 +1,6 @@
 package com.rdm.android.learningwithnationalparks.networkLessons;
 
+import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "lessonPlan")
 public class LessonPlan implements Parcelable {
 
     @SerializedName("total")
