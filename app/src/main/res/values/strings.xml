@@ -137,7 +137,7 @@
         to changing temperatures.</string>
 
     <!-- Strings for API keys National Parks and Flickr  -->
-    <string name="api_key_nps">ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu</string>
-    <string name="api_key_flickr">88c1855d07cdbccd65b6825822f0ea90</string>
+    <string name="api_key_nps">[MYAPIKEY]</string>
+    <string name="api_key_flickr">[MYAPIKEY]</string>
 
 </resources>
