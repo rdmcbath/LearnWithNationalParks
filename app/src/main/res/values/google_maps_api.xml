@@ -3,15 +3,15 @@
     <!--
     To get api key, follow this link, follow the directions and press "Create" at the end:
 
-    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=B0:85:EF:99:6C:B4:8E:0A:3E:08:9A:D6:74:C8:40:54:E2:6C:4A:18%3Bcom.rdm.android.homeschoolhelpernationalparks.Activities
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=[PACKAGENAME]com.rdm.android.homeschoolhelpernationalparks.Activities
 
     You can also add your credentials to an existing key, using these values:
 
     Package name:
-    B0:85:EF:99:6C:B4:8E:0A:3E:08:9A:D6:74:C8:40:54:E2:6C:4A:18
+    [PACKAGENAME]
 
     SHA-1 certificate fingerprint:
-    B0:85:EF:99:6C:B4:8E:0A:3E:08:9A:D6:74:C8:40:54:E2:6C:4A:18
+    [FINGERPRINT}
 
     Alternatively, follow the directions here:
     https://developers.google.com/maps/documentation/android/start#get-key
@@ -20,6 +20,6 @@
     string in this file.
     -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyDLgmIpQsFCxg1gELsQ3Y2JtzIDDSvrVFc
+        [MYAPIKEY]
     </string>
 </resources>
