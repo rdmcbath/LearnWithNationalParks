@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.rdm.android.learningwithnationalparks.adapters.InfoWindowCustom;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNearbyParksData;
 import com.rdm.android.learningwithnationalparks.R;
 
@@ -48,8 +50,7 @@ public class ParkSearchFragment extends Fragment implements OnMapReadyCallback,
     private GoogleMap mMap;
     double latitude;
     double longitude;
-    private int PROXIMITY_RADIUS = 50000;
-    GoogleApiClient mGoogleApiClient;
+	GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
@@ -64,7 +65,7 @@ public class ParkSearchFragment extends Fragment implements OnMapReadyCallback,
     public ParkSearchFragment() {
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_park_search, container, false);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -82,16 +83,18 @@ public class ParkSearchFragment extends Fragment implements OnMapReadyCallback,
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = ((SupportMapFragment)
                 this.getChildFragmentManager().findFragmentById(map));
-        mapFragment.getMapAsync(this);
+	    if (mapFragment != null) {
+		    mapFragment.getMapAsync(this);
+	    }
 
-        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+	    FloatingActionButton fab = rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "ParkSearchFragment onClick: FAB is Clicked");
                 mMap.clear();
-                String url = getUrl(latitude, longitude, Park);
+                String url = getUrl(latitude, longitude);
                 Object[] DataTransfer = new Object[2];
                 DataTransfer[0] = mMap;
                 DataTransfer[1] = url;
@@ -124,8 +127,6 @@ public class ParkSearchFragment extends Fragment implements OnMapReadyCallback,
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -149,6 +150,23 @@ public class ParkSearchFragment extends Fragment implements OnMapReadyCallback,
             //Request Location Permission
             checkLocationPermission();
         }
+
+	    // Set custom info window adapter for the google map
+	    InfoWindowCustom markerInfoWindowAdapter = new InfoWindowCustom(getContext());
+	    googleMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+
+	    // Add and show marker when the map is touched
+	    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+		    @Override
+		    public void onMapClick(LatLng arg0) {
+			    mMap.clear();
+			    MarkerOptions markerOptions = new MarkerOptions();
+			    markerOptions.position(arg0);
+			    mMap.animateCamera(CameraUpdateFactory.newLatLng(arg0));
+			    Marker marker = mMap.addMarker(markerOptions);
+			    marker.showInfoWindow();
+		    }
+	    });
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -174,16 +192,23 @@ public class ParkSearchFragment extends Fragment implements OnMapReadyCallback,
         }
     }
 
-    private String getUrl(double latitude, double longitude, String nearbyPlace) {
+    private String getUrl(double latitude, double longitude) {
 
-        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googlePlacesUrl.append("location=" + latitude + "," + longitude);
-        googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
-        googlePlacesUrl.append("&type=" + nearbyPlace);
-        googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyDLgmIpQsFCxg1gELsQ3Y2JtzIDDSvrVFc");
-        Log.d("getUrl", googlePlacesUrl.toString());
-        return (googlePlacesUrl.toString());
+//        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+//        googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
+//	    int PROXIMITY_RADIUS = 50000;
+//	    googlePlacesUrl.append("&radius=").append(PROXIMITY_RADIUS);
+//        googlePlacesUrl.append("&type=" + ParkSearchFragment.Park);
+//        googlePlacesUrl.append("&sensor=true");
+//        googlePlacesUrl.append("&key=").append(getString(R.string.api_key_maps));
+//        Log.d("getUrl", googlePlacesUrl.toString());
+//        return (googlePlacesUrl.toString());
+
+	    StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/textsearch/json?");
+	    googlePlacesUrl.append("query=National+Parks+in+United+States");
+	    googlePlacesUrl.append("&key=").append(getString(R.string.api_key_maps));
+	    Log.d("getUrl", googlePlacesUrl.toString());
+	    return (googlePlacesUrl.toString());
     }
 
     @Override
@@ -227,7 +252,7 @@ public class ParkSearchFragment extends Fragment implements OnMapReadyCallback,
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
 
     public void checkLocationPermission() {
@@ -267,8 +292,8 @@ public class ParkSearchFragment extends Fragment implements OnMapReadyCallback,
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[],
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
         Log.d(TAG, "ParkSearchFragment: onRequestPermissionsResult()");
 
         switch (requestCode) {
