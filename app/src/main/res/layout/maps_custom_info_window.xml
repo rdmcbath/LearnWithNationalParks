@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:gravity="center_vertical|center_horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/custom_info_bubble"
+              android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/map_window_image"
+        android:contentDescription="@string/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/map_window_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Sample Title"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/map_window_snippet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Sample Snippet"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,23 +1,16 @@
 package com.rdm.android.learningwithnationalparks.networkLessons;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@Entity(tableName = "datum")
 public class Datum implements Parcelable {
 
 	@SerializedName("id")
 	@Expose
-	@PrimaryKey
-	@ColumnInfo(name = "lessonId")
 	private Long id;
 
     @SerializedName("commonCore")
@@ -33,7 +26,6 @@ public class Datum implements Parcelable {
     private String questionObjective;
 
     @SerializedName("subject")
-
     @Expose
     private String subject;
 
@@ -183,5 +175,4 @@ public class Datum implements Parcelable {
         }
 
     };
-
 }

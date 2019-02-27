@@ -6,9 +6,9 @@
     android:id="@+id/saved_card_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="4dp"
+    android:elevation="8dp"
     android:layout_margin="5dp"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:id="@+id/saved_lesson_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#d81b60"
+            android:background="@drawable/background_card_saved_list"
             android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"

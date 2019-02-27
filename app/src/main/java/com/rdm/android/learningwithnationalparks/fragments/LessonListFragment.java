@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -65,14 +66,13 @@ public class LessonListFragment extends Fragment {
     private static final int SORT_ORDER_TITLE = 1;
     private static String SORT_ORDER;
     private String sort_criteria;
-    private String sortBy;
     private String x = "title";
     private Unbinder unbinder;
 
     public LessonListFragment() {
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onViewCreated(container, savedInstanceState);
         setHasOptionsMenu(true);
 
@@ -88,7 +88,7 @@ public class LessonListFragment extends Fragment {
         //set default preferences when the activity/fragment starts (order by title)
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         PreferenceManager.setDefaultValues(getContext(), R.xml.settings_lesson_list, true);
-        sortBy = sharedPrefs.getString(
+        String sortBy = sharedPrefs.getString(
                 getString(R.string.settings_sort_by_default),
                 getString(R.string.lesson_search_action_title));
 
@@ -226,7 +226,7 @@ public class LessonListFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(LIST_IMPORT, (ArrayList<? extends Parcelable>) data);
     }

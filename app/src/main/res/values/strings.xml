@@ -6,29 +6,40 @@
 
     <!-- Strings for Main Activity -->
     <string name="main_toolbar_title">Learn with National Parks</string>
-    <string name="main_lesson_plans_label">Lesson Plans by NPS</string>
-    <string name="main_sights_label">National Parks and Places on Flickr</string>
+    <string name="main_lesson_plans_label">NPS Lesson Plans</string>
+    <string name="main_sights_label">Flickr Photostream</string>
     <string name="main_sounds_label">NPS Sound Gallery</string>
-    <string name="main_park_search_label">Get to a Park Near You!</string>
+    <string name="main_park_search_label">Explore Parks Map</string>
     <string name="transition_photo">photoTransition</string>
     <string name="content_image_main">MainActivity background image lighthouse</string>
+    <string name="lesson_plan_content_desc">lesson_plan_image</string>
+    <string name="sights_content_desc">sights_image</string>
+    <string name="sounds_content_desc">sounds_image</string>
+    <string name="maps_content_desc">maps_image</string>
 
     <!-- Strings for ParkSearch Activities -->
+    <string name="park_search_label">Parks Map</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_location_permission">Location Permission Needed</string>
     <string name="text_location_permission">Please accept to use this activity, and make sure phone settings have location enabled.</string>
     <string name="ok">Got it</string>
     <string name="park">park</string>
-    <string name="current_position">Current Position</string>
-    <string name="pick_park">Pick a park!</string>
+    <string name="current_position">You\'re Here!</string>
+    <string name="pick_local_park">Parks near you</string>
+    <string name="pick_nat_park">All national parks</string>
     <string name="permission_denied">Permission denied.</string>
     <string name="current_location">Your Current Location</string>
     <string name="location_enabled">Location enabled by user!</string>
     <string name="location_not_enabled">Location not enabled, user cancelled.</string>
     <string name="fab_find_nearby_parks">Find nearby parks button</string>
 
+    <string name="map_action_settings">Options</string>
+    <string name="map_search_action_natparks">Show national parks</string>
+    <string name="map_search_action_localparks">Show parks near you</string>
+
     <!-- Strings for LessonPlan Activities -->
     <string name="lesson_list_toolbar_title">Lesson Plans</string>
+    <string name="lesson_list_background">background image for lesson plan list</string>
     <string name="title_lesson_list">Lesson Plans</string>
     <string name="no_network">No Network Found.</string>
     <string name="sorted_by_title">Sorted by Title</string>
@@ -39,7 +50,7 @@
     <string name="fab_save">Save this lesson</string>
 
     <!-- Strings for LessonList Menu: sort_by preference settings: default is sort by title -->
-    <string name="action_settings">Sort By</string>
+    <string name="action_settings">Sort</string>
     <string name="lesson_search_action_title">Title (default)</string>
     <string name="lesson_search_action_subject">Subject</string>
     <string name="lesson_search_action_saved">Saved</string>
@@ -137,7 +148,9 @@
         to changing temperatures.</string>
 
     <!-- Strings for API keys National Parks and Flickr  -->
-    <string name="api_key_nps">[MYAPIKEY]</string>
-    <string name="api_key_flickr">[MYAPIKEY]</string>
+    <string name="api_key_nps">ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu</string>
+    <string name="api_key_flickr">88c1855d07cdbccd65b6825822f0ea90</string>
+    <string name="api_key_maps">AIzaSyDLgmIpQsFCxg1gELsQ3Y2JtzIDDSvrVFc</string>
+    <string name="image_from_places">custom_info_window_content_desc</string>
 
 </resources>

@@ -14,16 +14,15 @@ import java.util.List;
 
 public class GetNearbyParksData extends AsyncTask<Object, String, String> {
 
-    String googlePlacesData;
-    GoogleMap mMap;
-    String url;
+    private String googlePlacesData;
+    private GoogleMap mMap;
 
-    @Override
+	@Override
     protected String doInBackground(Object... params) {
         try {
             Log.d("GetNearbyParksData", "doInBackground");
             mMap = (GoogleMap) params[0];
-            url = (String) params[1];
+	        String url = (String) params[1];
             DownloadUrl downloadUrl = new DownloadUrl();
             googlePlacesData = downloadUrl.readUrl(url);
         } catch (Exception e) {
@@ -35,8 +34,8 @@ public class GetNearbyParksData extends AsyncTask<Object, String, String> {
     @Override
     protected void onPostExecute(String result) {
         Log.d("GetNearbyParksData", "onPostExecute - parse Json result");
-        List<HashMap<String, String>> nearbyPlacesList = null;
-        JsonParser jsonParser = new JsonParser();
+        List<HashMap<String, String>> nearbyPlacesList;
+        JsonParserNearbyPlaces jsonParser = new JsonParserNearbyPlaces();
         nearbyPlacesList = jsonParser.parse(result);
         ShowNearbyPlaces(nearbyPlacesList);
     }
@@ -52,12 +51,12 @@ public class GetNearbyParksData extends AsyncTask<Object, String, String> {
             String vicinity = googlePlace.get("vicinity");
             LatLng latLng = new LatLng(lat, lng);
             markerOptions.position(latLng);
-            markerOptions.title(placeName + " : " + vicinity);
+            markerOptions.title(placeName + ": " + vicinity);
             mMap.addMarker(markerOptions);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             //move map camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(9));
         }
     }
 }

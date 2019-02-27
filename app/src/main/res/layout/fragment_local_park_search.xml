@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 tools:context="com.rdm.android.learningwithnationalparks.fragments.LocalParkSearchFragment"
+                                                 android:id="@+id/fragment_local_park_search_layout"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame_park_search_local_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <fragment android:id="@+id/local_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:contentDescription="@string/fab_find_nearby_parks"
+                android:stateListAnimator="@animator/fab_state_list_anim"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/park_tower"
+                android:elevation="@dimen/fab_elevation"
+                app:backgroundTint="@color/category_map"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="top" />
+
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

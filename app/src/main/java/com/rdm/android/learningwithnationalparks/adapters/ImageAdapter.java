@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.signature.ObjectKey;
 import com.rdm.android.learningwithnationalparks.activities.ImageDetailActivity;
 import com.rdm.android.learningwithnationalparks.networkFlickr.Description;
 import com.rdm.android.learningwithnationalparks.networkFlickr.FlickrPhoto;

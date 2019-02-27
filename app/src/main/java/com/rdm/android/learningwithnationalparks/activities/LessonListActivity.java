@@ -53,7 +53,7 @@ public class LessonListActivity extends AppCompatActivity {
                 .add(R.id.lesson_list_container, lessonListFragment)
                 .commit();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.lesson_list_toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

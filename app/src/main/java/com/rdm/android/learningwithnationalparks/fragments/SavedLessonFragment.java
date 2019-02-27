@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -34,8 +35,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SavedLessonFragment extends Fragment implements LoaderManager
-        .LoaderCallbacks<Cursor> {
+public class SavedLessonFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String LOG_TAG = SavedLessonFragment.class.getSimpleName();
 
     private Uri mCurrentSavedUri = LessonContract.SavedEntry.CONTENT_URI;
@@ -59,7 +59,7 @@ public class SavedLessonFragment extends Fragment implements LoaderManager
     public SavedLessonFragment() {
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onViewCreated(container, savedInstanceState);
         setHasOptionsMenu(true);
 
@@ -86,7 +86,7 @@ public class SavedLessonFragment extends Fragment implements LoaderManager
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(LIST_IMPORT, (ArrayList<? extends Parcelable>) data);
     }

@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:src="@drawable/badlands"
-        android:contentDescription="TODO" android:scaleType="centerCrop"
+        android:contentDescription="@string/lesson_list_background"
+        android:scaleType="centerCrop"
         android:alpha="0.7" />
 
     <LinearLayout
@@ -19,7 +20,8 @@
 
         <include
             android:id="@+id/tool_bar"
-            layout="@layout/tool_bar"></include>
+            layout="@layout/tool_bar">
+        </include>
 
         <FrameLayout
             android:layout_width="match_parent"

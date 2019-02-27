@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lesson_card_item"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="4dp"
-    android:layout_margin="5dp"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="8dp"
+    android:elevation="8dp"
+    android:layout_margin="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:id="@+id/lesson_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#8800A0"
+            android:background="@drawable/background_card_lesson_list"
             android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -29,14 +30,14 @@
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:text="Title" />
+            tools:text="Title"/>
 
         <TextView
             android:id="@+id/lesson_objective"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:paddingBottom="16dp"
+            android:paddingBottom="8dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingTop="16dp"
@@ -44,7 +45,7 @@
             android:textColor="#404040"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:text="Objective" />
+            tools:text="Objective"/>
 
         <TextView
             android:id="@+id/lesson_grade_level"
@@ -56,7 +57,7 @@
             android:textColor="#404040"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:text="Grade Level" />
+            tools:text="Grade Level"/>
 
         <TextView
             android:id="@+id/lesson_subject"
@@ -68,7 +69,7 @@
             android:textColor="#404040"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:text="Subject" />
+            tools:text="Subject"/>
 
         <TextView
             android:id="@+id/lesson_duration"
@@ -81,7 +82,7 @@
             android:textColor="#404040"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:text="Duration" />
+            tools:text="Duration"/>
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

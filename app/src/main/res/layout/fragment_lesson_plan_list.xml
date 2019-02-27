@@ -10,9 +10,7 @@
         android:id="@+id/lesson_plan_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="?android:attr/dividerHorizontal"
-        android:showDividers="middle"
-        tools:context=".Fragments.LessonListFragment" />
+        tools:context=".Fragments.LessonListFragment"/>
 
     <!-- Empty view is only visible when the recyclerView has no items. -->
     <TextView
@@ -22,7 +20,7 @@
         android:gravity="center"
         android:text="@string/no_lesson_plans_found"
         style="?android:attr/progressBarStyleHorizontal"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <!-- Loading indicator -->
     <ProgressBar

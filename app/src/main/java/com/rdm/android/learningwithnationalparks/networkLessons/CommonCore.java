@@ -1,15 +1,12 @@
 package com.rdm.android.learningwithnationalparks.networkLessons;
 
-import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@Entity(tableName = "commonCore")
 public class CommonCore implements Parcelable {
 
     @SerializedName("stateStandards")

@@ -27,7 +27,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.rdm.android.learningwithnationalparks.fragments.ParkSearchFragment;
+import com.rdm.android.learningwithnationalparks.fragments.LocalParkSearchFragment;
 import com.rdm.android.learningwithnationalparks.R;
 
 import java.util.Objects;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected GoogleApiClient mGoogleApiClient;
     PendingResult<LocationSettingsResult> result;
     private static final int REQUEST_CHECK_SETTINGS = 1000;
-    ParkSearchFragment mParkSearchFragment;
+    LocalParkSearchFragment mParkSearchFragment;
     protected LocationRequest locationRequest;
 
     @Override
