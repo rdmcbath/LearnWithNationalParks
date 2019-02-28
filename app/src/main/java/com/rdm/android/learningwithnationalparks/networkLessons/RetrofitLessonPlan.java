@@ -9,10 +9,10 @@ public interface RetrofitLessonPlan {
     //National Park Service API. Here is what the query looks like:
     //https://developer.nps.gov/api/v1/lessonplans?sort=subject&api_key=[MYAPIKEY]
 
-    @GET("lessonplans?sort=subject&api_key=[MYAPIKEY]")
+    @GET("lessonplans?sort=subject&api_key=ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu")
     Call<LessonPlan> getLessonPlanSubject();
 
-    @GET("lessonplans?sort=title&api_key=[MYAPIKEY]")
+    @GET("lessonplans?sort=title&api_key=ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu")
     Call<LessonPlan> getLessonPlanTitle();
 }
 

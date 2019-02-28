@@ -20,6 +20,6 @@
     string in this file.
     -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        [MYAPIKEY]
+        AIzaSyDLgmIpQsFCxg1gELsQ3Y2JtzIDDSvrVFc
     </string>
 </resources>

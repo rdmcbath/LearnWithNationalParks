@@ -151,6 +151,6 @@
     <string name="api_key_nps">ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu</string>
     <string name="api_key_flickr">88c1855d07cdbccd65b6825822f0ea90</string>
     <string name="api_key_maps">AIzaSyDLgmIpQsFCxg1gELsQ3Y2JtzIDDSvrVFc</string>
-    <string name="image_from_places">custom_info_window_content_desc</string>
+    <string name="image_from_places">US National Parks</string>
 
 </resources>
