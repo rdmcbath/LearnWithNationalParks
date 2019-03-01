@@ -32,6 +32,7 @@
     <string name="location_enabled">Location enabled by user!</string>
     <string name="location_not_enabled">Location not enabled, user cancelled.</string>
     <string name="fab_find_nearby_parks">Find nearby parks button</string>
+    <string name="image_from_places">US National Parks</string>
 
     <string name="map_action_settings">Options</string>
     <string name="map_search_action_natparks">Show national parks</string>
@@ -151,6 +152,5 @@
     <string name="api_key_nps">ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu</string>
     <string name="api_key_flickr">88c1855d07cdbccd65b6825822f0ea90</string>
     <string name="api_key_maps">AIzaSyDLgmIpQsFCxg1gELsQ3Y2JtzIDDSvrVFc</string>
-    <string name="image_from_places">US National Parks</string>
 
 </resources>

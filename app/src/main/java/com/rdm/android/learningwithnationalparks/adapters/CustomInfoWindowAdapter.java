@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,45 +34,10 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 	private Context context;
 	private Marker marker;
-
-//	public CustomInfoWindowAdapter(Context context) {
-//		this.context = context;
-//	}
-//
-//	@Override
-//	public View getInfoWindow(final Marker marker) {
-//
-//		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//
-//		View v = inflater.inflate(R.layout.maps_custom_info_window, null);
-//
-//		TextView title = v.findViewById(R.id.map_window_title);
-//		TextView snippet = v.findViewById(R.id.map_window_snippet);
-//		ImageView photo = v.findViewById(R.id.map_window_image);
-//
-////		String imageUrl = "imageURL";
-////
-////		Glide.with(context)
-////				.load(imageUrl)
-////				.apply(RequestOptions.centerCropTransform())
-////				.apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.AUTOMATIC))
-////				.into(photo);
-//
-//		title.setText(marker.getTitle());
-//		snippet.setText(marker.getSnippet());
-//
-//		return v;
-//	}
-
-//	@Override
-//	public View getInfoContents(Marker marker) {
-//
-//		return null;
-//	}
-
+	private HashMap<String, Uri> images=null;
 	private LayoutInflater mInflater;
 
-	public CustomInfoWindowAdapter(LayoutInflater i){
+	public CustomInfoWindowAdapter(LayoutInflater i) {
 		mInflater = i;
 	}
 
@@ -93,6 +59,23 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 		TextView description = v.findViewById(R.id.map_window_snippet);
 		description.setText(marker.getSnippet());
+
+//		Uri imageUri = images.get(marker.getId());
+//
+//		ImageView icon = v.findViewById(R.id.map_window_image);
+//
+//		if (imageUri == null) {
+//			icon.setVisibility(View.GONE);
+//		} else {
+//			icon.setVisibility(View.VISIBLE);
+//			Glide.with(context)
+//					.load(imageUri)
+//					.apply(RequestOptions.errorOf(R.drawable.park_tower))
+//					.apply(RequestOptions.centerCropTransform())
+//					.apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.AUTOMATIC))
+//					.into(icon);
+//		}
+
 		// Return info window contents
 		return v;
 	}

@@ -1,8 +1,6 @@
 package com.rdm.android.learningwithnationalparks.fragments;
 
 import android.Manifest;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -20,22 +18,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.StreetViewPanoramaOptions;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.rdm.android.learningwithnationalparks.R;
 import com.rdm.android.learningwithnationalparks.adapters.CustomInfoWindowAdapter;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNationalParksData;
@@ -136,11 +130,12 @@ public class NationalParkSearchFragment
 			checkLocationPermission();
 		}
 
+		setInfoWindowClickToPanorama(mMap);
+
 		showNationalView();
 
-		// Set custom info window adapter for the google map
-		googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getLayoutInflater()));
-
+			// Set custom info window adapter for the google map
+			googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getLayoutInflater()));
 	}
 
 		protected synchronized void buildGoogleApiClient() {
@@ -159,10 +154,7 @@ public class NationalParkSearchFragment
 		mLocationRequest.setFastestInterval(1000);
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 		if (ContextCompat.checkSelfPermission(getContext(),
-				Manifest.permission.ACCESS_FINE_LOCATION)
-				== PackageManager.PERMISSION_GRANTED) {
-//			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-//					mLocationRequest, this);
+				Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 		}
 	}
 
@@ -192,47 +184,9 @@ public class NationalParkSearchFragment
 		return (googletextInputPlacesUrl.toString());
 	}
 
-		@Override
+	@Override
 		public void onConnectionSuspended(int i) {
 	}
-
-//		@Override
-//		public void onLocationChanged(Location location) {
-//		Log.i(LOG_TAG, "onLocationChanged");
-//
-//		mLastLocation = location;
-//		if (mCurrLocationMarker != null) {
-//			mCurrLocationMarker.remove();
-//		}
-//		//Place current location marker
-//		latitude = location.getLatitude();
-//		longitude = location.getLongitude();
-//		LatLng latLng = new LatLng(latitude, longitude);
-//		MarkerOptions markerOptions = new MarkerOptions();
-//		markerOptions.position(latLng);
-//		markerOptions.title(getString(R.string.current_position));
-//		markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-//		mCurrLocationMarker = mMap.addMarker(markerOptions);
-//
-//		//move map camera
-//		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 4));
-//
-//
-//
-//		Window window = getActivity().getWindow();
-//		Snackbar.make(window.getDecorView().getRootView(), R.string.current_location,
-//				Snackbar.LENGTH_LONG).show();
-//
-//		Log.i(LOG_TAG, "onLocationChanged: " +
-//				String.format("latitude:%.3f longitude:%.3f", latitude, longitude));
-//
-//		//stop location updates
-//		if (mGoogleApiClient != null) {
-//			LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-//			Log.i(LOG_TAG, "onLocationChanged: Removing Location Updates");
-//		}
-//		Log.i(LOG_TAG, "onLocationChanged: Exit");
-//	}
 
 		@Override
 		public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -311,9 +265,32 @@ public class NationalParkSearchFragment
 		@Override
 		public void onPause() {
 		super.onPause();
-		//stop location updates when Activity is no longer active
-//		if (mGoogleApiClient != null) {
-//			LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-//		}
+	}
+
+	/**
+	 * Starts a Street View panorama when an info window is clicked.
+	 * @param map The GoogleMap to set the listener to.
+	 */
+	private void setInfoWindowClickToPanorama(GoogleMap map) {
+		map.setOnInfoWindowClickListener(
+				new GoogleMap.OnInfoWindowClickListener() {
+					@Override
+					public void onInfoWindowClick(Marker marker) {
+							// Set the position to the position of the marker
+							StreetViewPanoramaOptions options =
+									new StreetViewPanoramaOptions().position(
+											marker.getPosition());
+
+							SupportStreetViewPanoramaFragment streetViewFragment
+									= SupportStreetViewPanoramaFragment
+									.newInstance(options);
+
+							// Replace the fragment and add it to the backstack
+							getChildFragmentManager().beginTransaction()
+									.replace(R.id.national_map,
+											streetViewFragment)
+									.addToBackStack(null).commit();
+						}
+				});
 	}
 }

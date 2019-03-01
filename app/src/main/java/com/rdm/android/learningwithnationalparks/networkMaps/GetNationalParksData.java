@@ -32,6 +32,7 @@ public class GetNationalParksData extends AsyncTask<Object, String, String> {
 			String url = (String) params[1];
 			DownloadUrl downloadUrl = new DownloadUrl();
 			googlePlacesData = downloadUrl.readUrl(url);
+
 		} catch (Exception e) {
 			Log.d("GooglePlacesReadTask", e.toString());
 		}

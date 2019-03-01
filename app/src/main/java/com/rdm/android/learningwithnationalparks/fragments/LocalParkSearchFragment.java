@@ -29,7 +29,9 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.StreetViewPanoramaOptions;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -151,6 +153,8 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
 
 	    // Set custom info window adapter for the google map
 	    googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getLayoutInflater()));
+
+//	    setInfoWindowClickToPanorama(mMap);
 
 	    // Add and show marker when the map is touched
 	    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -321,4 +325,31 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
     }
+
+//	/**
+//	 * Starts a Street View panorama when an info window is clicked.
+//	 * @param map The GoogleMap to set the listener to.
+//	 */
+//	private void setInfoWindowClickToPanorama(GoogleMap map) {
+//		map.setOnInfoWindowClickListener(
+//				new GoogleMap.OnInfoWindowClickListener() {
+//					@Override
+//					public void onInfoWindowClick(Marker marker) {
+//						// Set the position to the position of the marker
+//						StreetViewPanoramaOptions options =
+//								new StreetViewPanoramaOptions().position(
+//										marker.getPosition());
+//
+//						SupportStreetViewPanoramaFragment streetViewFragment
+//								= SupportStreetViewPanoramaFragment
+//								.newInstance(options);
+//
+//						// Replace the fragment and add it to the backstack
+//						getChildFragmentManager().beginTransaction()
+//								.replace(R.id.local_map,
+//										streetViewFragment)
+//								.addToBackStack(null).commit();
+//					}
+//				});
+//	}
 }
