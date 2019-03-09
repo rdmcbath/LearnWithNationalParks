@@ -19,18 +19,18 @@
             android:layout_gravity="center" />
 
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
-                android:contentDescription="@string/fab_find_nearby_parks"
-                android:stateListAnimator="@animator/fab_state_list_anim"
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="24dp"
-                android:src="@drawable/park_tower"
-                android:elevation="@dimen/fab_elevation"
-                app:backgroundTint="@color/category_map"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_gravity="top" />
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/fab"-->
+                <!--android:contentDescription="@string/fab_find_nearby_parks"-->
+                <!--android:stateListAnimator="@animator/fab_state_list_anim"-->
+                <!--android:layout_marginTop="24dp"-->
+                <!--android:layout_marginStart="24dp"-->
+                <!--android:src="@drawable/park_tower"-->
+                <!--android:elevation="@dimen/fab_elevation"-->
+                <!--app:backgroundTint="@color/category_map"-->
+                <!--android:layout_width="56dp"-->
+                <!--android:layout_height="56dp"-->
+                <!--android:layout_gravity="top" />-->
 
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

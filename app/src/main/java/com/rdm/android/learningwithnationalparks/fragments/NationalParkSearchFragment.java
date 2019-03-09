@@ -31,7 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.rdm.android.learningwithnationalparks.R;
-import com.rdm.android.learningwithnationalparks.adapters.CustomInfoWindowAdapter;
+import com.rdm.android.learningwithnationalparks.adapters.NationalInfoWindowAdapter;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNationalParksData;
 
 import static com.rdm.android.learningwithnationalparks.R.id.national_map;
@@ -135,7 +135,7 @@ public class NationalParkSearchFragment
 		showNationalView();
 
 			// Set custom info window adapter for the google map
-			googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getLayoutInflater()));
+			googleMap.setInfoWindowAdapter(new NationalInfoWindowAdapter(getLayoutInflater()));
 	}
 
 		protected synchronized void buildGoogleApiClient() {
@@ -159,6 +159,7 @@ public class NationalParkSearchFragment
 	}
 
 	private void showNationalView(){
+		Log.d(LOG_TAG, "showNationalView Method Called");
 
 		Window window = getActivity().getWindow();
 		Snackbar.make(window.getDecorView().getRootView(), R.string.pick_nat_park,
@@ -171,8 +172,6 @@ public class NationalParkSearchFragment
 		Log.d(LOG_TAG, "showNationalView() called: " + url);
 		GetNationalParksData getNationalParksData = new GetNationalParksData();
 		getNationalParksData.execute(DataTransfer);
-
-		Log.d(LOG_TAG, "showNationalView Method Called");
 	}
 
 		private String getNatParkSearchUrl() {

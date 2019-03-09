@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -36,10 +34,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.rdm.android.learningwithnationalparks.adapters.CustomInfoWindowAdapter;
+import com.rdm.android.learningwithnationalparks.adapters.LocalInfoWindowAdapter;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNearbyParksData;
 import com.rdm.android.learningwithnationalparks.R;
-
 import butterknife.BindView;
 
 import static android.content.ContentValues.TAG;
@@ -59,9 +56,8 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
     public static final int REQUEST_LOCATION = 199;
     public static final String Park = "park";
 
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
-
+//    @BindView(R.id.fab)
+//    FloatingActionButton fab;
     @BindView(R.id.fragment_local_park_search_layout)
     CoordinatorLayout coordinatorLayout;
 
@@ -86,31 +82,32 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
 	    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 	    SupportMapFragment mapFragment = ((SupportMapFragment)
 			    this.getChildFragmentManager().findFragmentById(local_map));
-	    mapFragment.getMapAsync(this);
+	    if (mapFragment != null) {
+		    mapFragment.getMapAsync(this);
+	    }
 
-	    FloatingActionButton fab = rootView.findViewById(R.id.fab);
-	    fab.setOnClickListener(new View.OnClickListener() {
-
-		    @Override
-		    public void onClick(View v) {
-			    Log.i(LOG_TAG, "ParkSearchFragment onClick: FAB is Clicked");
-			    String url = getLocalParkSearchUrl(latitude, longitude, Park);
-			    Object[] DataTransfer = new Object[2];
-			    DataTransfer[0] = mMap;
-			    DataTransfer[1] = url;
-			    Log.d("onClick", url);
-			    GetNearbyParksData getNearbyParksData = new GetNearbyParksData();
-			    getNearbyParksData.execute(DataTransfer);
-			    Log.i(LOG_TAG, "getNearbyParksData Method Called");
-			    Window window = getActivity().getWindow();
-			    Snackbar.make(window.getDecorView().getRootView(), R.string.pick_local_park,
-					    Snackbar.LENGTH_LONG).show();
-		    }
-	    });
+//	    FloatingActionButton fab = rootView.findViewById(R.id.fab);
+//	    fab.setOnClickListener(new View.OnClickListener() {
+//
+//		    @Override
+//		    public void onClick(View v) {
+//			    Log.i(LOG_TAG, "ParkSearchFragment onClick: FAB is Clicked");
+//			    String url = getLocalParkSearchUrl(latitude, longitude);
+//			    Object[] DataTransfer = new Object[2];
+//			    DataTransfer[0] = mMap;
+//			    DataTransfer[1] = url;
+//			    Log.d("onClick", url);
+//			    GetNearbyParksData getNearbyParksData = new GetNearbyParksData();
+//			    getNearbyParksData.execute(DataTransfer);
+//			    Log.i(LOG_TAG, "getNearbyParksData Method Called");
+//			    Window window = getActivity().getWindow();
+//			    Snackbar.make(window.getDecorView().getRootView(), R.string.pick_local_park,
+//					    Snackbar.LENGTH_LONG).show();
+//		    }
+//	    });
 
 	    return rootView;
     }
-
 
 	private boolean CheckGooglePlayServices() {
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
@@ -143,7 +140,7 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
                 //Location Permission already granted
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
-                Log.i(LOG_TAG, "buildGoogleApiClient Method Called");
+                Log.d(LOG_TAG, "buildGoogleApiClient Method Called");
             }
 
         } else {
@@ -151,23 +148,23 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
             checkLocationPermission();
         }
 
-	    // Set custom info window adapter for the google map
-	    googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getLayoutInflater()));
+	    setInfoWindowClickToPanorama(mMap);
 
-//	    setInfoWindowClickToPanorama(mMap);
+        // Set custom info window adapter for the google map
+	    googleMap.setInfoWindowAdapter(new LocalInfoWindowAdapter(getLayoutInflater(), getContext()));
 
 	    // Add and show marker when the map is touched
-	    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-		    @Override
-		    public void onMapClick(LatLng arg0) {
-			    mMap.clear();
-			    MarkerOptions markerOptions = new MarkerOptions();
-			    markerOptions.position(arg0);
-			    mMap.animateCamera(CameraUpdateFactory.newLatLng(arg0));
-			    Marker marker = mMap.addMarker(markerOptions);
-			    marker.showInfoWindow();
-		    }
-	    });
+//	    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//		    @Override
+//		    public void onMapClick(LatLng arg0) {
+//			    mMap.clear();
+//			    MarkerOptions markerOptions = new MarkerOptions();
+//			    markerOptions.position(arg0);
+//			    mMap.animateCamera(CameraUpdateFactory.newLatLng(arg0));
+//			    Marker marker = mMap.addMarker(markerOptions);
+//			    marker.showInfoWindow();
+//		    }
+//	    });
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -193,16 +190,35 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
         }
     }
 
-    private String getLocalParkSearchUrl(double latitude, double longitude, String nearbyPlace) {
+	private void showLocalView() {
+		Log.d(LOG_TAG, "showLocalView called");
 
+		String url = getLocalParkSearchUrl(latitude, longitude);
+		Object[] DataTransfer = new Object[2];
+		DataTransfer[0] = mMap;
+		DataTransfer[1] = url;
+		GetNearbyParksData getNearbyParksData = new GetNearbyParksData();
+		getNearbyParksData.execute(DataTransfer);
+		Log.d(LOG_TAG, "getNearbyParksData Method Called");
+		Window window = getActivity().getWindow();
+		Snackbar.make(window.getDecorView().getRootView(), R.string.pick_local_park,
+				Snackbar.LENGTH_LONG).show();
+	}
+
+    private String getLocalParkSearchUrl(double latitude, double longitude) {
+
+	    String types = "park|campground|rv_park|zoo";
 	    int PROXIMITY_RADIUS = 50000;
+
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
 	    googlePlacesUrl.append("&radius=").append(PROXIMITY_RADIUS);
-        googlePlacesUrl.append("&type=" + nearbyPlace);
+        googlePlacesUrl.append("&type=").append(types);
         googlePlacesUrl.append("&sensor=true");
         googlePlacesUrl.append("&key=").append(getString(R.string.api_key_maps));
         Log.d("getUrl", googlePlacesUrl.toString());
+	    Log.d(LOG_TAG, "nearby parks url endpoint: " + googlePlacesUrl.toString());
+
         return (googlePlacesUrl.toString());
     }
 
@@ -228,12 +244,14 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
-        //move map camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 9));
+	    showLocalView();
 
-        Window window = getActivity().getWindow();
-        Snackbar.make(window.getDecorView().getRootView(), R.string.current_location,
-                Snackbar.LENGTH_LONG).show();
+        //move map camera
+	    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+
+//        Window window = getActivity().getWindow();
+//        Snackbar.make(window.getDecorView().getRootView(), R.string.current_location,
+//                Snackbar.LENGTH_LONG).show();
 
         Log.i(LOG_TAG, "onLocationChanged: " +
                 String.format("latitude:%.3f longitude:%.3f", latitude, longitude));
@@ -326,30 +344,33 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
         }
     }
 
-//	/**
-//	 * Starts a Street View panorama when an info window is clicked.
-//	 * @param map The GoogleMap to set the listener to.
-//	 */
-//	private void setInfoWindowClickToPanorama(GoogleMap map) {
-//		map.setOnInfoWindowClickListener(
-//				new GoogleMap.OnInfoWindowClickListener() {
-//					@Override
-//					public void onInfoWindowClick(Marker marker) {
-//						// Set the position to the position of the marker
-//						StreetViewPanoramaOptions options =
-//								new StreetViewPanoramaOptions().position(
-//										marker.getPosition());
-//
-//						SupportStreetViewPanoramaFragment streetViewFragment
-//								= SupportStreetViewPanoramaFragment
-//								.newInstance(options);
-//
-//						// Replace the fragment and add it to the backstack
-//						getChildFragmentManager().beginTransaction()
-//								.replace(R.id.local_map,
-//										streetViewFragment)
-//								.addToBackStack(null).commit();
-//					}
-//				});
-//	}
+	/**
+	 * Starts a Street View panorama when an info window is clicked.
+	 *
+	 * @param map The GoogleMap to set the listener to.
+	 */
+	private void setInfoWindowClickToPanorama(GoogleMap map) {
+		map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+					@Override
+					public void onInfoWindowClick(Marker marker) {
+
+						// Set the position to the position of the marker
+						StreetViewPanoramaOptions options =
+								new StreetViewPanoramaOptions().position(
+										marker.getPosition());
+
+						SupportStreetViewPanoramaFragment streetViewFragment
+								= SupportStreetViewPanoramaFragment
+								.newInstance(options);
+
+						// Replace the fragment and add it to the backstack
+						getChildFragmentManager().beginTransaction()
+								.replace(R.id.local_map,
+										streetViewFragment)
+								.addToBackStack(null).commit();
+					}
+
+				});
+	}
 }

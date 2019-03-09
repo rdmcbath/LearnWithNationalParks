@@ -1,9 +1,14 @@
 package com.rdm.android.learningwithnationalparks.activities;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +21,8 @@ import android.widget.LinearLayout;
 import com.rdm.android.learningwithnationalparks.fragments.LocalParkSearchFragment;
 import com.rdm.android.learningwithnationalparks.R;
 import com.rdm.android.learningwithnationalparks.fragments.NationalParkSearchFragment;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,13 +58,17 @@ public class ParkSearchActivity extends AppCompatActivity {
 	    if (pref == 0) {
 		    mNatParkSearchFragment = new NationalParkSearchFragment();
 		    getSupportFragmentManager().beginTransaction()
+				    .setPrimaryNavigationFragment(mNatParkSearchFragment)
 				    .add(R.id.park_search_container, mNatParkSearchFragment)
+				    .addToBackStack("NationalParkSearchFragment")
 				    .commit();
 
 	    } else {
-		    mNatParkSearchFragment = new NationalParkSearchFragment();
+		    mLocalParkSearchFragment = new LocalParkSearchFragment();
 		    getSupportFragmentManager().beginTransaction()
-				    .add(R.id.park_search_container, mNatParkSearchFragment)
+				    .setPrimaryNavigationFragment(mLocalParkSearchFragment)
+				    .add(R.id.park_search_container, mLocalParkSearchFragment)
+				    .addToBackStack("LocalParkSearchFragment")
 				    .commit();
 	    }
     }
@@ -80,7 +91,9 @@ public class ParkSearchActivity extends AppCompatActivity {
 
 				mLocalParkSearchFragment = new LocalParkSearchFragment();
 				getSupportFragmentManager().beginTransaction()
+						.setPrimaryNavigationFragment(mLocalParkSearchFragment)
 						.replace(R.id.park_search_container, mLocalParkSearchFragment)
+						.addToBackStack("LocalParkSearchFragment")
 						.commit();
 
 				return true;
@@ -91,7 +104,9 @@ public class ParkSearchActivity extends AppCompatActivity {
 
 				mNatParkSearchFragment = new NationalParkSearchFragment();
 				getSupportFragmentManager().beginTransaction()
+						.setPrimaryNavigationFragment(mLocalParkSearchFragment)
 						.replace(R.id.park_search_container, mNatParkSearchFragment)
+						.addToBackStack("NationalParkSearchFragment")
 						.commit();
 
 				return true;
@@ -114,13 +129,13 @@ public class ParkSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.i(LOG_TAG, "ParkSearchActivity: onSaveInstanceState");
+        Log.i(LOG_TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Log.i(LOG_TAG, "ParkSearchActivity: onRestoreInstanceState");
+        Log.i(LOG_TAG, "onRestoreInstanceState");
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -133,6 +148,40 @@ public class ParkSearchActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	@Override
+	public void onBackPressed() {
+
+		if (!recursivePopBackStack(getFragmentManager())) {
+			super.onBackPressed();
+		}
+	}
+
+	/**
+	 * Recursively look through nested fragments for a backstack entry to pop
+	 * @return: true if a pop was performed
+	 */
+	@RequiresApi(api = Build.VERSION_CODES.O)
+	public static boolean recursivePopBackStack(FragmentManager fragmentManager) {
+		if (fragmentManager.getFragments() != null) {
+			for (Fragment fragment : fragmentManager.getFragments()) {
+				if (fragment != null && fragment.isVisible()) {
+					boolean popped = recursivePopBackStack(fragment.getChildFragmentManager());
+					if (popped) {
+						return true;
+					}
+				}
+			}
+		}
+
+		if (fragmentManager.getBackStackEntryCount() > 0) {
+			fragmentManager.popBackStack();
+			return true;
+		}
+
+		return false;
+	}
 }
 
 
