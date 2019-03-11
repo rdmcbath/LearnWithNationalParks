@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.rdm.android.learningwithnationalparks.activities.ParkSearchActivity;
 import com.rdm.android.learningwithnationalparks.adapters.LocalInfoWindowAdapter;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNearbyParksData;
 import com.rdm.android.learningwithnationalparks.R;
@@ -66,6 +68,8 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_local_park_search, container, false);
+
+	    getActivity().setTitle("Parks Near You");
 
 	    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 		    checkLocationPermission();
@@ -366,9 +370,9 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
 
 						// Replace the fragment and add it to the backstack
 						getChildFragmentManager().beginTransaction()
-								.replace(R.id.local_map,
-										streetViewFragment)
-								.addToBackStack(null).commit();
+								.replace(R.id.local_map, streetViewFragment, "panoramaFragment")
+								.addToBackStack("panoramaFragment").commit();
+
 					}
 
 				});

@@ -31,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.rdm.android.learningwithnationalparks.R;
+import com.rdm.android.learningwithnationalparks.activities.ParkSearchActivity;
 import com.rdm.android.learningwithnationalparks.adapters.NationalInfoWindowAdapter;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNationalParksData;
 
@@ -68,6 +69,8 @@ public class NationalParkSearchFragment
 		public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_national_park_search, container, false);
 		setHasOptionsMenu(true);
+
+		getActivity().setTitle("US National Parks");
 
 		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			checkLocationPermission();
