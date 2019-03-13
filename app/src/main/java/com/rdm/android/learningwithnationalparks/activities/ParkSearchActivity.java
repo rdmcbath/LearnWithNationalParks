@@ -3,6 +3,7 @@ package com.rdm.android.learningwithnationalparks.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -21,6 +22,8 @@ import com.rdm.android.learningwithnationalparks.fragments.NationalParkSearchFra
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.rdm.android.learningwithnationalparks.fragments.NationalParkSearchFragment.REQUEST_LOCATION;
+
 public class ParkSearchActivity extends AppCompatActivity {
 	private static final String LOG_TAG = ParkSearchActivity.class.getSimpleName();
 
@@ -32,6 +35,7 @@ public class ParkSearchActivity extends AppCompatActivity {
 	private static final int VIEW_LOCAL = 1;
 	private static String VIEW_OPTION = "view_option";
 	private SharedPreferences sharedPrefs;
+	private static final int REQUEST_LOCATION = 199;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,16 +117,24 @@ public class ParkSearchActivity extends AppCompatActivity {
 		}
 	}
 
-	@Override
-	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+//	@Override
+//	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+//
+//		switch (requestCode){
+//			case REQUEST_LOCATION: {
+//				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//					mLocalParkSearchFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//					mNatParkSearchFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//				} else {
+//
+//					super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//				}
+//			}
+//		}
+//	}
 
-		if (requestCode == LocalParkSearchFragment.REQUEST_LOCATION) {
-			mLocalParkSearchFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-			mNatParkSearchFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		} else {
-			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		}
-	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
