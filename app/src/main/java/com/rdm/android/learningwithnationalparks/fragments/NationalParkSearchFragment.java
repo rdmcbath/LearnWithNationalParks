@@ -26,10 +26,14 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
+import com.google.android.gms.maps.StreetViewPanorama;
+import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.StreetViewPanoramaOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
 import com.rdm.android.learningwithnationalparks.R;
 import com.rdm.android.learningwithnationalparks.activities.ParkSearchActivity;
 import com.rdm.android.learningwithnationalparks.adapters.NationalInfoWindowAdapter;
@@ -39,6 +43,7 @@ import static com.rdm.android.learningwithnationalparks.R.id.national_map;
 import butterknife.BindView;
 
 import static android.content.ContentValues.TAG;
+import static com.rdm.android.learningwithnationalparks.R.id.parallax;
 
 
 /**
@@ -255,9 +260,7 @@ public class NationalParkSearchFragment
 
 				} else {
 					// Permission denied, Disable the functionality that depends on this permission
-					Window window = getActivity().getWindow();
-					Snackbar.make(window.getDecorView().getRootView(), R.string.permission_denied,
-							Snackbar.LENGTH_LONG).show();
+					Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.permission_denied, Snackbar.LENGTH_LONG).show();
 				}
 				break;
 			}
@@ -271,6 +274,7 @@ public class NationalParkSearchFragment
 
 	/**
 	 * Starts a Street View panorama when an info window is clicked.
+	 *
 	 * @param map The GoogleMap to set the listener to.
 	 */
 	private void setInfoWindowClickToPanorama(GoogleMap map) {
@@ -278,21 +282,17 @@ public class NationalParkSearchFragment
 				new GoogleMap.OnInfoWindowClickListener() {
 					@Override
 					public void onInfoWindowClick(Marker marker) {
-							// Set the position to the position of the marker
-							StreetViewPanoramaOptions options =
-									new StreetViewPanoramaOptions().position(
-											marker.getPosition());
 
-							SupportStreetViewPanoramaFragment streetViewFragment
-									= SupportStreetViewPanoramaFragment
-									.newInstance(options);
+						// Set the position to the position of the marker
+						StreetViewPanoramaOptions options = new StreetViewPanoramaOptions().position(marker.getPosition());
+
+						SupportStreetViewPanoramaFragment streetViewFragment = SupportStreetViewPanoramaFragment.newInstance(options);
 
 							// Replace the fragment and add it to the backstack
 							getChildFragmentManager().beginTransaction()
-									.replace(R.id.national_map,
-											streetViewFragment)
-									.addToBackStack(null).commit();
-						}
+									.replace(R.id.national_map, streetViewFragment, "panoramaFragment")
+									.addToBackStack("panoramaFragment").commit();
+					}
 				});
 	}
 }

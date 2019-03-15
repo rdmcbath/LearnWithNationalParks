@@ -53,7 +53,7 @@ public class LocalInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 		description.setText(marker.getSnippet());
 
 		TextView extraContent = v.findViewById(R.id.map_window_extra_content_local);
-		extraContent.setText(R.string.info_window_images);
+		extraContent.setText(R.string.info_window_panorama);
 
 		ImageView icon = v.findViewById(R.id.map_window_image_local);
 

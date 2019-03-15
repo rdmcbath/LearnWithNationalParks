@@ -331,8 +331,7 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
 
                 } else {
                     // Permission denied, Disable the functionality that depends on this permission
-                    Window window = getActivity().getWindow();
-                    Snackbar.make(window.getDecorView().getRootView(), R.string.permission_denied, Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.permission_denied, Snackbar.LENGTH_LONG).show();
                 }
                 break;
             }
@@ -360,21 +359,22 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
 					public void onInfoWindowClick(Marker marker) {
 
 						// Set the position to the position of the marker
-						StreetViewPanoramaOptions options =
-								new StreetViewPanoramaOptions().position(
-										marker.getPosition());
+						StreetViewPanoramaOptions options = new StreetViewPanoramaOptions().position(marker.getPosition());
 
-						SupportStreetViewPanoramaFragment streetViewFragment
-								= SupportStreetViewPanoramaFragment
-								.newInstance(options);
+						SupportStreetViewPanoramaFragment streetViewFragment = SupportStreetViewPanoramaFragment.newInstance(options);
 
-						// Replace the fragment and add it to the backstack
-						getChildFragmentManager().beginTransaction()
-								.replace(R.id.local_map, streetViewFragment, "panoramaFragment")
-								.addToBackStack("panoramaFragment").commit();
-
+							// Replace the fragment and add it to the backstack
+							getChildFragmentManager().beginTransaction()
+									.replace(R.id.local_map, streetViewFragment, "panoramaFragment")
+									.addToBackStack("panoramaFragment").commit();
 					}
-
 				});
+	}
+
+	public void getPhotos() {
+
+
+		
+
 	}
 }

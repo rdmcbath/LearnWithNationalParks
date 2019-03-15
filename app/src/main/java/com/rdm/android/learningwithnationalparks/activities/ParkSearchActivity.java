@@ -3,10 +3,8 @@ package com.rdm.android.learningwithnationalparks.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +33,6 @@ public class ParkSearchActivity extends AppCompatActivity {
 	private static final int VIEW_LOCAL = 1;
 	private static String VIEW_OPTION = "view_option";
 	private SharedPreferences sharedPrefs;
-	private static final int REQUEST_LOCATION = 199;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,25 +113,6 @@ public class ParkSearchActivity extends AppCompatActivity {
 				return super.onOptionsItemSelected(item);
 		}
 	}
-
-//	@Override
-//	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-//
-//		switch (requestCode){
-//			case REQUEST_LOCATION: {
-//				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//
-//					mLocalParkSearchFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//					mNatParkSearchFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//				} else {
-//
-//					super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//				}
-//			}
-//		}
-//	}
-
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

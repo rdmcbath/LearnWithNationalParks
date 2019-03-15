@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:id="@+id/linear_layout_tablet_lesson_list"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.rdm.android.learningwithnationalparks.activities.LessonListActivity">
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.rdm.android.learningwithnationalparks.activities.LessonListActivity">
 
     <include
         android:id="@+id/tool_bar"
@@ -17,12 +17,12 @@
     master/detail flow.
     -->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:divider="?android:attr/dividerVertical"
-        android:orientation="horizontal"
-        android:showDividers="middle">
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:baselineAligned="false"
+                  android:divider="?android:attr/dividerVertical"
+                  android:orientation="horizontal"
+                  android:showDividers="middle">
 
         <FrameLayout
             android:id="@+id/lesson_list_container"
