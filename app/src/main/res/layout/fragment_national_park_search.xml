@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 tools:context="com.rdm.android.learningwithnationalparks.fragments.NationalParkSearchFragment"
-                                                 android:id="@+id/fragment_nat_park_search_layout"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/frame_park_search_national_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+<FrameLayout
+    android:id="@+id/frame_park_search_national_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
         <fragment android:id="@+id/national_map"
                   android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -20,4 +16,3 @@
                   android:layout_height="match_parent"
                   android:layout_gravity="center" />
     </FrameLayout>
-</android.support.design.widget.CoordinatorLayout>

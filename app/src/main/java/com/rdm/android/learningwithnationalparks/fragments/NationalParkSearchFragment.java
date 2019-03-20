@@ -11,6 +11,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -63,10 +64,8 @@ public class NationalParkSearchFragment
 		Location mLastLocation;
 		Marker mCurrLocationMarker;
 		LocationRequest mLocationRequest;
+		SupportMapFragment mapFragment;
 		public static final int REQUEST_LOCATION = 199;
-
-		@BindView(R.id.fragment_nat_park_search_layout)
-		CoordinatorLayout coordinatorLayout;
 
     public NationalParkSearchFragment() {
 	}
@@ -89,9 +88,13 @@ public class NationalParkSearchFragment
 			Log.i(LOG_TAG, "onCreateView: Google Play Services available");
 		}
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
-		SupportMapFragment mapFragment = ((SupportMapFragment)
-				this.getChildFragmentManager().findFragmentById(national_map));
-		if (mapFragment != null) {
+			mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.national_map);
+			FragmentManager fm = getChildFragmentManager();
+		if (mapFragment == null) {
+			mapFragment = SupportMapFragment.newInstance();
+			fm.beginTransaction().replace(R.id.frame_park_search_national_layout, mapFragment).commit();
+			fm.executePendingTransactions();
+		} else {
 			mapFragment.getMapAsync(this);
 		}
 
@@ -267,9 +270,28 @@ public class NationalParkSearchFragment
 		}
 	}
 
-		@Override
-		public void onPause() {
+	@Override
+	public void onPause() {
 		super.onPause();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		if (mMap != null) {
+			mMap.clear();
+		}
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+
+		if (mapFragment != null)
+			if (getFragmentManager() != null) {
+				getFragmentManager().beginTransaction().remove(mapFragment).commit();
+			}
 	}
 
 	/**
@@ -283,6 +305,8 @@ public class NationalParkSearchFragment
 					@Override
 					public void onInfoWindowClick(Marker marker) {
 
+						marker.hideInfoWindow();
+
 						// Set the position to the position of the marker
 						StreetViewPanoramaOptions options = new StreetViewPanoramaOptions().position(marker.getPosition());
 
@@ -290,7 +314,7 @@ public class NationalParkSearchFragment
 
 							// Replace the fragment and add it to the backstack
 							getChildFragmentManager().beginTransaction()
-									.replace(R.id.national_map, streetViewFragment, "panoramaFragment")
+									.replace(R.id.frame_park_search_national_layout, streetViewFragment, "panoramaFragment")
 									.addToBackStack("panoramaFragment").commit();
 					}
 				});

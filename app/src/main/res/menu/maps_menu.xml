@@ -5,22 +5,15 @@
       tools:context=".activities.ParkSearchActivity">
 
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/map_action_settings"
-        android:orderInCategory="1"
-        app:showAsAction="ifRoom"
-        android:visible="true" />
-
-    <item
         android:id="@+id/action_national_view"
         android:orderInCategory="2"
         android:title="@string/map_search_action_natparks"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_local_view"
         android:orderInCategory="3"
         android:title="@string/map_search_action_localparks"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="never" />
 
 </menu>

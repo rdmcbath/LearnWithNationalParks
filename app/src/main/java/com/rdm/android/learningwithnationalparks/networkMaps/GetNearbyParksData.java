@@ -56,10 +56,8 @@ public class GetNearbyParksData extends AsyncTask<Object, String, String> {
             markerOptions.position(latLng);
             markerOptions.title(placeName + ": " + vicinity);
 	        mMap.addMarker(markerOptions);
-	        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-
-            //move map camera - disabling here because the map centers away from the user's location on a random marker
-//	        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8));
+	        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+	        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8));
         }
     }
 }

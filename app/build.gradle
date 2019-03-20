@@ -1,12 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+
     signingConfigs {
         config {
-            keyAlias 'ignore'
-            keyPassword 'ignore'
-            storeFile file('ignore')
-            storePassword 'ignore'
+            keyAlias 'rdmkey'
+            keyPassword 'rdm1451'
+            storeFile file('/Users/rebecca.mcbath/Desktop/NationalParksGooglePrivateKey/private_key.pepk')
+            storePassword 'rdm1451'
         }
     }
     compileSdkVersion 28
@@ -16,8 +21,8 @@ android {
         applicationId "com.rdm.android.learningwithnationalparks"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 5
-        versionName "4.1"
+        versionCode 6
+        versionName "4.2"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -38,7 +43,6 @@ android {
     sourceSets {
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
-
 
     buildTypes {
         release {
@@ -78,8 +82,10 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:support-fragment:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
+    implementation "com.android.support:support-emoji:28.0.0"
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
@@ -90,7 +96,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.jakewharton:butterknife:8.8.1'
     implementation 'org.parceler:parceler-api:1.1.6'
-    implementation 'com.google.android.gms:play-services-analytics:16.0.7'
+    implementation 'com.google.android.gms:play-services-analytics:16.0.8'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.libraries.places:places:1.0.0'

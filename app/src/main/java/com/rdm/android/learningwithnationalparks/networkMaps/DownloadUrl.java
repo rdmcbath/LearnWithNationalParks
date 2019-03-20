@@ -21,7 +21,9 @@ class DownloadUrl {
             urlConnection = (HttpURLConnection) url.openConnection();
 
             // Connecting to url
-            urlConnection.connect();
+//            urlConnection.setReadTimeout(15000 /* milliseconds */);
+//            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+	        urlConnection.connect();
 
             // Reading data from url
             iStream = urlConnection.getInputStream();

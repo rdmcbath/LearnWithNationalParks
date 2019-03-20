@@ -52,6 +52,8 @@ public class LocalInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 		TextView description = v.findViewById(R.id.map_window_snippet_local);
 		description.setText(marker.getSnippet());
 
+		marker.setTag("localPark");
+
 		TextView extraContent = v.findViewById(R.id.map_window_extra_content_local);
 		extraContent.setText(R.string.info_window_panorama);
 
