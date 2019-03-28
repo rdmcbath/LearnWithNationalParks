@@ -21,5 +21,6 @@
     <dimen name="main_activity_margin_end">24dp</dimen>
 
     <dimen name="widget_margin">8dp</dimen>
+    <dimen name="margin_default">8dp</dimen>
 
 </resources>

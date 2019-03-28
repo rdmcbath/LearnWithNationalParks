@@ -305,17 +305,14 @@ public class LocalParkSearchFragment extends Fragment implements OnMapReadyCallb
 			case REQUEST_LOCATION: {
 
 				// If request is cancelled, the result arrays are empty.
-				if (grantResults.length > 0
-						&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-					// permission was granted.
+					// If permission was granted, set Location enabled
 					if (ContextCompat.checkSelfPermission(getActivity(),
 							Manifest.permission.ACCESS_FINE_LOCATION)
 							== PackageManager.PERMISSION_GRANTED) {
 
-						if (mGoogleApiClient == null) {
-							buildGoogleApiClient();
-						}
+						buildGoogleApiClient();
 						mMap.setMyLocationEnabled(true);
 					}
 

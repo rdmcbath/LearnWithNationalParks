@@ -21,7 +21,7 @@
     <string name="park_search_label">Parks Map</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_location_permission">Location Permission Needed</string>
-    <string name="text_location_permission">Please accept to use this activity, and make sure phone settings have location enabled.</string>
+    <string name="text_location_permission">Please accept in order to use this activity and make sure settings have location enabled.</string>
     <string name="ok">Got it</string>
     <string name="park">park</string>
     <string name="current_position">You\'re Here!</string>

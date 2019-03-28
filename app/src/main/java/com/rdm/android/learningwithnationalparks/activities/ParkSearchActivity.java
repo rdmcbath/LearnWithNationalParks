@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -27,9 +28,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -62,17 +65,22 @@ import butterknife.ButterKnife;
 
 import static android.content.ContentValues.TAG;
 
-public class ParkSearchActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-		GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, LocationListener {
+public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyCallback,
+		GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 	private static final String LOG_TAG = ParkSearchActivity.class.getSimpleName();
 
 	LocalParkSearchFragment mLocalParkSearchFragment;
 	NationalParkSearchFragment mNatParkSearchFragment;
 	@BindView(R.id.park_search_linear_layout)
 	LinearLayout linearLayout;
+	public static final int REQUEST_LOCATION = 199;
+	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+	private long UPDATE_INTERVAL = 15000;  /* 15 secs */
+	private long FASTEST_INTERVAL = 5000; /* 5 secs */
 	private static final int VIEW_NATIONAL = 0;
 	private static final int VIEW_LOCAL = 1;
-	private static String VIEW_OPTION = "view_option";
+	private static final String PREFS_VIEW_OPTION = "com.rdm.android.learningwithnationalparks.view_option";
+	private static final String PREFS_LOCATE_MAP_TYPE = "com.rdm.android.learningwithnationalparks.map_type";
 	private SharedPreferences sharedPrefs;
 	private GoogleMap mMap;
 	private Marker marker;
@@ -85,16 +93,12 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 	SupportMapFragment mapFragment;
 	Activity activity;
 	SupportStreetViewPanoramaFragment streetViewFragment;
-	public static final int REQUEST_LOCATION = 199;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_park_search);
 		ButterKnife.bind(this);
-
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		sharedPrefs.edit().putInt(VIEW_OPTION, VIEW_NATIONAL).apply();
 
 		Toolbar toolbar = findViewById(R.id.tool_bar);
 		setSupportActionBar(toolbar);
@@ -104,28 +108,17 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 		}
 
 		//Check if Google Play Services is available or not
-		if (!CheckGooglePlayServices()) {
+		if (!checkGooglePlayServices()) {
 			Log.i(LOG_TAG, "onCreateView: Google Play Services are not available");
 			Snackbar.make(getWindow().getDecorView().getRootView(), "Google Play Services are not available", Snackbar.LENGTH_LONG).show();
+			finish();
 		} else {
 			Log.i(LOG_TAG, "onCreateView: Google Play Services available");
 		}
 
-		//Initialize Google Play Services
-		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-				//Location Permission already granted
-				buildGoogleApiClient();
-				Log.d(LOG_TAG, "buildGoogleApiClient Method Called");
-			}
-		} else {
-			//Request Location Permission
-			checkLocationPermission();
-		}
-
 		// Obtain the SupportMapFragment and get notified when the map is ready
 		// to be used.
-		SupportMapFragment mapFragment = SupportMapFragment.newInstance();
+		mapFragment = SupportMapFragment.newInstance();
 		getSupportFragmentManager().beginTransaction().add(R.id.park_search_container, mapFragment).commit();
 		mapFragment.getMapAsync(this);
 	}
@@ -168,15 +161,19 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 		switch (item.getItemId()) {
 			case R.id.normal_map:
 				mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+				sharedPrefs.edit().putInt(PREFS_LOCATE_MAP_TYPE, GoogleMap.MAP_TYPE_NORMAL).apply();
 				return true;
 			case R.id.hybrid_map:
 				mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+				sharedPrefs.edit().putInt(PREFS_LOCATE_MAP_TYPE, GoogleMap.MAP_TYPE_HYBRID).apply();
 				return true;
 			case R.id.satellite_map:
 				mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+				sharedPrefs.edit().putInt(PREFS_LOCATE_MAP_TYPE, GoogleMap.MAP_TYPE_SATELLITE).apply();
 				return true;
 			case R.id.terrain_map:
 				mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+				sharedPrefs.edit().putInt(PREFS_LOCATE_MAP_TYPE, GoogleMap.MAP_TYPE_TERRAIN).apply();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -185,32 +182,26 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
-		mMap = googleMap;
-		mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		setMapStyle(mMap);
+		this.mMap = googleMap;
+
+		setMapStyle(mMap); // load the map style from json raw file
 		setMapLongClick(mMap); // Set a long click listener for the map;
 		setPoiClick(mMap); // Set a click listener for points of interest.
 
-		//Initialize Google Play Services and set location enabled
-		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-				//Location Permission already granted
-				buildGoogleApiClient();
-				mMap.setMyLocationEnabled(true);
-				Log.d(LOG_TAG, "buildGoogleApiClient Method Called");
-			}
-		} else {
-			//Request Location Permission
-			checkLocationPermission();
-		}
+		//Enable Location which includes building the Google API Client
+		enableMyLocation(mMap);
+
+		// Get shared prefs for view option and map type
+		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		int pref = sharedPrefs.getInt(PREFS_VIEW_OPTION, VIEW_NATIONAL); // default is the national view
+		int mapType = sharedPrefs.getInt(PREFS_LOCATE_MAP_TYPE, GoogleMap.MAP_TYPE_NORMAL); // default is the normal map type
+		mMap.setMapType(mapType);
 
 		// Set custom info window adapter for the google map
 		mMap.setInfoWindowAdapter(new LocalInfoWindowAdapter(getLayoutInflater(), this));
 
 		setInfoWindowClickToPanorama(mMap);
 
-		sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		int pref = sharedPrefs.getInt(VIEW_OPTION, VIEW_NATIONAL); // default view is national view
 
 		if (pref == VIEW_NATIONAL) {
 			showNationalView();
@@ -219,18 +210,101 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 		}
 	}
 
-	private boolean CheckGooglePlayServices() {
-		GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
-		int result = googleAPI.isGooglePlayServicesAvailable(this);
-		if (result != ConnectionResult.SUCCESS) {
-			if (googleAPI.isUserResolvableError(result)) {
-				googleAPI.getErrorDialog(this, result,
-						0).show();
-			}
-			return false;
+	/**
+	 * Checks for location permissions, and requests them if they are missing.
+	 * Otherwise, enables the location layer.
+	 */
+	private void enableMyLocation(GoogleMap map) {
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			buildGoogleApiClient();
+			map.setMyLocationEnabled(true);
+		} else {
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 		}
-		return true;
 	}
+
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		// Check if location permissions are granted and if so enable the
+		// location data layer.
+		switch (requestCode) {
+			case REQUEST_LOCATION:
+				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+					enableMyLocation(mMap);
+					break;
+				}
+		}
+	}
+
+	protected synchronized void buildGoogleApiClient() {
+		mGoogleApiClient = new GoogleApiClient.Builder(this)
+				.addConnectionCallbacks(this)
+				.addOnConnectionFailedListener(this)
+				.addApi(LocationServices.API)
+				.build();
+		mGoogleApiClient.connect();
+	}
+
+//	public void checkLocationPermission() {
+//		if (ContextCompat.checkSelfPermission(this,
+//				Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//
+//			// Asking user if explanation is needed
+//			if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+//
+//				//Show an explanation to the user *asynchronously* -- don't block this thread
+//				// waiting for the user's response! After the user sees the explanation, try again
+//				// to request the permission. Prompt the user once explanation has been shown
+//				new AlertDialog.Builder(this)
+//						.setTitle(R.string.title_location_permission)
+//						.setMessage(R.string.text_location_permission)
+//						.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//							@Override
+//							public void onClick(DialogInterface dialogInterface, int i) {
+//								//Prompt the user once explanation has been shown
+//								ActivityCompat.requestPermissions(activity,
+//										new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+//							}
+//						})
+//						.create()
+//						.show();
+//
+//			} else {
+//				// No explanation needed, we can request the permission.
+//				ActivityCompat.requestPermissions(this,
+//						new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+//			}
+//		}
+//	}
+
+//	@Override
+//	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+//		Log.d(TAG, "onRequestPermissionsResult()");
+//
+//		switch (requestCode) {
+//			case REQUEST_LOCATION: {
+//
+//				// If request is cancelled, the result arrays are empty
+//				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//					// permission was granted
+//					if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//							== PackageManager.PERMISSION_GRANTED) {
+//
+//						buildGoogleApiClient();
+//						mMap.setMyLocationEnabled(true);
+//					}
+//
+//				} else {
+//					// Permission denied, Disable the functionality that depends on this permission
+//					Snackbar.make(getWindow().getDecorView().getRootView(), R.string.permission_denied, Snackbar.LENGTH_LONG).show();
+//				}
+//				break;
+//			}
+//		}
+//	}
 
 	/**
 	 * Adds a blue marker to the map when the user long clicks on it.
@@ -252,7 +326,7 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 						.position(latLng)
 						.title(getString(R.string.dropped_pin))
 						.snippet(snippet)
-						.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+						.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 			}
 		});
 	}
@@ -274,78 +348,6 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 				poiMarker.setTag(getString(R.string.poi));
 			}
 		});
-	}
-
-	protected synchronized void buildGoogleApiClient() {
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
-				.addConnectionCallbacks(this)
-				.addOnConnectionFailedListener(this)
-				.addApi(LocationServices.API)
-				.build();
-		mGoogleApiClient.connect();
-	}
-
-	public void checkLocationPermission() {
-		if (ContextCompat.checkSelfPermission(this,
-				Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-			// Asking user if explanation is needed
-			if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-					Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-				//Show an explanation to the user *asynchronously* -- don't block this thread
-				// waiting for the user's response! After the user sees the explanation, try again
-				// to request the permission. Prompt the user once explanation has been shown
-				new AlertDialog.Builder(this)
-						.setTitle(R.string.title_location_permission)
-						.setMessage(R.string.text_location_permission)
-						.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialogInterface, int i) {
-								//Prompt the user once explanation has been shown
-								ActivityCompat.requestPermissions(activity,
-										new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-							}
-						})
-						.create()
-						.show();
-
-			} else {
-				// No explanation needed, we can request the permission.
-				ActivityCompat.requestPermissions(this,
-						new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-			}
-		}
-	}
-
-	@Override
-	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-		Log.d(TAG, "onRequestPermissionsResult()");
-
-		switch (requestCode) {
-			case REQUEST_LOCATION: {
-
-				// If request is cancelled, the result arrays are empty
-				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-					// permission was granted
-					if (ContextCompat.checkSelfPermission(this,
-							Manifest.permission.ACCESS_FINE_LOCATION)
-							== PackageManager.PERMISSION_GRANTED) {
-
-						if (mGoogleApiClient == null) {
-							buildGoogleApiClient();
-						}
-						mMap.setMyLocationEnabled(true);
-					}
-
-				} else {
-					// Permission denied, Disable the functionality that depends on this permission
-					Snackbar.make(getWindow().getDecorView().getRootView(), R.string.permission_denied, Snackbar.LENGTH_LONG).show();
-				}
-				break;
-			}
-		}
 	}
 
 	@Override
@@ -496,9 +498,7 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 		try {
 			// Customise the styling of the base map using a JSON object defined
 			// in a raw resource file.
-			boolean success = map.setMapStyle(
-					MapStyleOptions.loadRawResourceStyle(
-							this, R.raw.map_style));
+			boolean success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
 
 			if (!success) {
 				Log.e(TAG, "Style parsing failed.");
@@ -509,28 +509,80 @@ public class ParkSearchActivity extends AppCompatActivity implements GoogleApiCl
 	}
 
 	@Override
-	protected void onPause() {
-		super.onPause();
+	protected void onStart() {
+		super.onStart();
+		if (mGoogleApiClient != null) {
+			mGoogleApiClient.connect();
+		}
 	}
 
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
+	public void onStop(){
+		stopLocationUpdates();
+		super.onStop();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		//stop location updates when Activity is no longer active
+		stopLocationUpdates();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (!checkGooglePlayServices()) {
+			Toast.makeText(getApplicationContext(),"Please install google play services",Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override
 	public void onConnected(@Nullable Bundle bundle) {
 
+		mLocationRequest = new LocationRequest();
+		mLocationRequest.setInterval(UPDATE_INTERVAL);
+		mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+		}
 	}
 
 	@Override
 	public void onConnectionSuspended(int i) {
-
+		Log.i(TAG, "Connection suspended");
 	}
 
 	@Override
 	public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+		Log.i(TAG, "connection failed");
+	}
 
+	private boolean checkGooglePlayServices() {
+		GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
+		int result = googleAPI.isGooglePlayServicesAvailable(this);
+		if (result != ConnectionResult.SUCCESS) {
+			if (googleAPI.isUserResolvableError(result)) {
+				googleAPI.getErrorDialog(this, result,
+						0).show();
+			}
+			return false;
+		}
+		return true;
+	}
+
+
+	private void startLocationUpdates() {
+
+	}
+
+	public void stopLocationUpdates() {
+		if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+			LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+			mGoogleApiClient.disconnect();
+		}
 	}
 }
 

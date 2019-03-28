@@ -17,4 +17,7 @@
 
     <!-- Background color for the map category -->
     <color name="category_map">#16AFCA</color>
+
+    <color name="mapButton">#aaffffff</color>
+    <color name="mapButtonStroke">#ccaaaaaa</color>
 </resources>
