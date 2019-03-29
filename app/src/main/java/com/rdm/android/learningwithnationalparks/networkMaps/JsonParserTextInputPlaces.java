@@ -1,6 +1,9 @@
 package com.rdm.android.learningwithnationalparks.networkMaps;
 
 import android.util.Log;
+import android.widget.Toast;
+
+import com.rdm.android.learningwithnationalparks.activities.ParkSearchActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,22 +37,27 @@ public class JsonParserTextInputPlaces {
 
 	private List<HashMap<String, String>> getTextInputPlaces(JSONArray jsonArray) {
 
-		int placesCount = jsonArray.length();
+		List<HashMap<String, String>> txtInputPlacesList = null;
+		if (jsonArray != null) {
+			int placesCount = jsonArray.length();
 
-		List<HashMap<String, String>> txtInputPlacesList = new ArrayList<>();
-		HashMap<String, String> txtInputPlaceMap;
-		Log.d("TextInputPlaces", "getTextInputPlaces");
+			txtInputPlacesList = new ArrayList<>();
+			HashMap<String, String> txtInputPlaceMap;
+			Log.d("TextInputPlaces", "getTextInputPlaces");
 
-		for (int i = 0; i < placesCount; i++) {
-			try {
-				txtInputPlaceMap = getTextInputPlace((JSONObject) jsonArray.get(i));
-				txtInputPlacesList.add(txtInputPlaceMap);
-				Log.d("TextInputPlaces", "Adding textInputPlaces");
+			for (int i = 0; i < placesCount; i++) {
+				try {
+					txtInputPlaceMap = getTextInputPlace((JSONObject) jsonArray.get(i));
+					txtInputPlacesList.add(txtInputPlaceMap);
+					Log.d("TextInputPlaces", "Adding textInputPlaces");
 
-			} catch (JSONException e) {
-				Log.d("TextInputPlaces", "Error in Adding textInputPlaces");
-				e.printStackTrace();
+				} catch (JSONException e) {
+					Log.d("TextInputPlaces", "Error in Adding textInputPlaces");
+					e.printStackTrace();
+				}
 			}
+		} else {
+			Log.d("getTextInputPlaces", "Error getting jsonArray.length(), probably null due to no connection");
 		}
 		return txtInputPlacesList;
 	}

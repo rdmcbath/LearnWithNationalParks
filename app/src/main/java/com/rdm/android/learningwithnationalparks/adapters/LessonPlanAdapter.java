@@ -2,6 +2,7 @@ package com.rdm.android.learningwithnationalparks.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,10 +26,10 @@ public class LessonPlanAdapter extends RecyclerView.Adapter<LessonPlanAdapter.Vi
     private static final String LOG_TAG = LessonPlanAdapter.class.getSimpleName();
 
     public LessonPlan lessonPlan;
-    public List<Datum> data = new ArrayList<>();
+    public List<Datum> data;
     public Datum datum;
     private Context context;
-    public static final String KEY_LESSON_PLAN = "lesson_plan";
+    private static final String KEY_LESSON_PLAN = "lesson_plan";
 
     public LessonPlanAdapter(LessonPlan lessonPlan, List<Datum> data, Context context) {
         this.lessonPlan = lessonPlan;
@@ -36,15 +37,16 @@ public class LessonPlanAdapter extends RecyclerView.Adapter<LessonPlanAdapter.Vi
         this.context = context;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.lesson_card_item, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(LessonPlanAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LessonPlanAdapter.ViewHolder holder, int position) {
         holder.lessonTitle.setText(data.get(position).getTitle());
         holder.lessonObjective.setText(data.get(position).getQuestionObjective());
         holder.lessonGradeLevel.setText(data.get(position).getGradeLevel());

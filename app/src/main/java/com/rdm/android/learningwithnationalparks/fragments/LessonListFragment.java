@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +26,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.rdm.android.learningwithnationalparks.activities.LessonListActivity;
 import com.rdm.android.learningwithnationalparks.activities.SavedLessonActivity;
 import com.rdm.android.learningwithnationalparks.adapters.LessonPlanAdapter;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
@@ -64,7 +66,7 @@ public class LessonListFragment extends Fragment {
     public LessonPlan lessonPlan;
     private static final int SORT_ORDER_SUBJECT = 0;
     private static final int SORT_ORDER_TITLE = 1;
-    private static String SORT_ORDER;
+    private static String SORT_ORDER_PREFS_KEY;
     private String sort_criteria;
     private String x = "title";
     private Unbinder unbinder;
@@ -88,9 +90,7 @@ public class LessonListFragment extends Fragment {
         //set default preferences when the activity/fragment starts (order by title)
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         PreferenceManager.setDefaultValues(getContext(), R.xml.settings_lesson_list, true);
-        String sortBy = sharedPrefs.getString(
-                getString(R.string.settings_sort_by_default),
-                getString(R.string.lesson_search_action_title));
+        String sortBy = sharedPrefs.getString(getString(R.string.settings_sort_by_default), getString(R.string.lesson_search_action_title));
 
         if (data != null) {
             mLayoutManager = new LinearLayoutManager(getActivity());
@@ -100,8 +100,8 @@ public class LessonListFragment extends Fragment {
             mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);
 
             // Get a reference to the ConnectivityManager to check state of network connectivity
-            ConnectivityManager connMgr = (ConnectivityManager)
-                    getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            ConnectivityManager connMgr = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = null;
             if (connMgr != null) {
                 networkInfo = connMgr.getActiveNetworkInfo();
@@ -109,13 +109,24 @@ public class LessonListFragment extends Fragment {
             // If there is a network connection, load lesson plan data
             if (networkInfo != null && networkInfo.isConnected()) {
 
-                loadLessonPlanListByTitle();
-                Log.i(LOG_TAG, "loadLessonPlanList Title Method Called");
+	            int pref = sharedPrefs.getInt(SORT_ORDER_PREFS_KEY, SORT_ORDER_TITLE);
+
+	            if (pref == SORT_ORDER_TITLE) {
+	            	loadLessonPlanListByTitle();
+		            Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.sorted_by_title, Snackbar.LENGTH_LONG).show();
+		            Log.i(LOG_TAG, "loadLessonPlanList Title Method Called");
+	            } else if (pref == SORT_ORDER_SUBJECT) {
+		            loadLessonPlanListBySubject();
+		            Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.sorted_by_subject, Snackbar.LENGTH_LONG).show();
+		            Log.i(LOG_TAG, "loadLessonPlanList Subject Method Called");
+	            }
 
             } else {
-                Snackbar snackbar = Snackbar
-                        .make(frameLayout, R.string.no_network, Snackbar.LENGTH_SHORT);
-                snackbar.show();
+			// no network
+	            if(getActivity() != null) {
+	            	progressBar.setVisibility(View.GONE);
+		            Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.no_network, Snackbar.LENGTH_LONG).show();
+	            }
             }
         }
         return rootView;
@@ -134,19 +145,17 @@ public class LessonListFragment extends Fragment {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (id == R.id.action_subject_search) {
-            sharedPrefs.edit().putInt(SORT_ORDER, SORT_ORDER_SUBJECT).apply();
+            sharedPrefs.edit().putInt(SORT_ORDER_PREFS_KEY, SORT_ORDER_SUBJECT).apply();
             loadLessonPlanListBySubject();
             // Show snackbar to verify sort order by subject
-            Snackbar snackbar = Snackbar
-                    .make(frameLayout, R.string.sorted_by_subject, Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(frameLayout, R.string.sorted_by_subject, Snackbar.LENGTH_SHORT);
             snackbar.show();
         }
         if (id == R.id.action_title_search) {
-            sharedPrefs.edit().putInt(SORT_ORDER, SORT_ORDER_TITLE).apply();
+            sharedPrefs.edit().putInt(SORT_ORDER_PREFS_KEY, SORT_ORDER_TITLE).apply();
             loadLessonPlanListByTitle();
             // Show snackbar to verify sort order by title
-            Snackbar snackbar = Snackbar
-                    .make(frameLayout, R.string.sorted_by_title, Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(frameLayout, R.string.sorted_by_title, Snackbar.LENGTH_SHORT);
             snackbar.show();
         }
         if (id == R.id.action_saved_search) {
@@ -168,6 +177,7 @@ public class LessonListFragment extends Fragment {
                     LessonPlan lessonPlan = response.body();
                     Log.i(LOG_TAG, "Response.Body Retrofit Called");
                     mLessonPlanAdapter = new LessonPlanAdapter(lessonPlan, lessonPlan.getData(), getContext());
+ //                   mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                     mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);
                     mLayoutManager.onRestoreInstanceState(mListState);
                     progressBar.setVisibility(View.GONE);

@@ -21,8 +21,8 @@ class DownloadUrl {
             urlConnection = (HttpURLConnection) url.openConnection();
 
             // Connecting to url
-//            urlConnection.setReadTimeout(15000 /* milliseconds */);
-//            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(15000 /* milliseconds */);
+            urlConnection.setConnectTimeout(15000 /* milliseconds */);
 	        urlConnection.connect();
 
             // Reading data from url
@@ -43,6 +43,7 @@ class DownloadUrl {
 
         } catch (Exception e) {
             Log.d("Exception", e.toString());
+
         } finally {
             if (iStream != null) {
                 iStream.close();

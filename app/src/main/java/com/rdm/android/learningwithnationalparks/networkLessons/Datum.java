@@ -13,15 +13,15 @@ public class Datum implements Parcelable {
 	@Expose
 	private Long id;
 
-    @SerializedName("commonCore")
+    @SerializedName("commoncore")
     @Expose
     private CommonCore commonCore;
 
-    @SerializedName("gradeLevel")
+    @SerializedName("gradelevel")
     @Expose
     private String gradeLevel;
 
-    @SerializedName("questionObjective")
+    @SerializedName("questionobjective")
     @Expose
     private String questionObjective;
 

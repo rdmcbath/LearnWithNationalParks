@@ -109,6 +109,7 @@ public class ImageGridFragment extends Fragment implements SwipeRefreshLayout.On
 			Log.d(LOG_TAG, "loadImageGrid Method Called");
 
 		} else {
+			progressBar.setVisibility(View.GONE);
 			Snackbar snackbar = Snackbar
 					.make(frameLayout, R.string.no_network, Snackbar.LENGTH_SHORT);
 			snackbar.show();

@@ -1,9 +1,16 @@
 package com.rdm.android.learningwithnationalparks.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -42,21 +49,25 @@ public class LessonListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.lesson_list);
-        ButterKnife.bind(this);
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.lesson_list);
+	    ButterKnife.bind(this);
 
-        LessonListFragment lessonListFragment = new LessonListFragment();
-        lessonListFragment.setLessonPlan(lessonPlan);
-        lessonListFragment.setDatum(datum);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.lesson_list_container, lessonListFragment)
-                .commit();
+	    LessonListFragment lessonListFragment = new LessonListFragment();
+	    lessonListFragment.setLessonPlan(lessonPlan);
+	    lessonListFragment.setDatum(datum);
+	    getSupportFragmentManager().beginTransaction()
+			    .add(R.id.lesson_list_container, lessonListFragment, LessonListFragment.class.getSimpleName())
+			    .addToBackStack(LessonListFragment.class.getSimpleName())
+			    .commit();
 
-        Toolbar toolbar = findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.lesson_list_toolbar_title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    Toolbar toolbar = findViewById(R.id.tool_bar);
+	    setSupportActionBar(toolbar);
+	    ActionBar ab = getSupportActionBar();
+	    if (ab != null) {
+		    getSupportActionBar().setTitle(R.string.lesson_list_toolbar_title);
+		    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    }
     }
 
     public void handleClickLessonDetail(Datum datum) {
@@ -64,8 +75,7 @@ public class LessonListActivity extends AppCompatActivity {
 
         if (mDualPane) {
             //we are in dualPane mode (Tablet) so replace the intro layout w/ LessonPlanDetail once
-            //a lesson plan is clicked from the left side. Attach object bundle to
-            // Fragment as Argument
+            //a lesson plan is clicked from the left side. Attach object bundle to Fragment as Argument
             getSupportActionBar().hide();
             Bundle args = new Bundle();
             args.putParcelable(KEY_LESSON_PLAN, datum);
@@ -75,7 +85,8 @@ public class LessonListActivity extends AppCompatActivity {
             lessonDetailFragment.setLessonPlan(lessonPlan);
             lessonDetailFragment.setDatum(datum);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.detail_container, lessonDetailFragment)
+                    .replace(R.id.detail_container, lessonDetailFragment, LessonListFragment.class.getSimpleName())
+		            .addToBackStack(LessonListFragment.class.getSimpleName())
                     .commit();
 
         } else {

@@ -52,8 +52,8 @@
     <string name="lesson_list_background">background image for lesson plan list</string>
     <string name="title_lesson_list">Lesson Plans</string>
     <string name="no_network">No Network Found.</string>
-    <string name="sorted_by_title">Sorted by Title</string>
-    <string name="sorted_by_subject">Sorted by Subject</string>
+    <string name="sorted_by_title">Sort by Title</string>
+    <string name="sorted_by_subject">Sort by Subject</string>
     <string name="select_lesson_plan">Select a lesson plan.</string>
     <string name="header_image">Lesson Plan Header Image</string>
     <string name="web_content">Web content for lesson plan</string>

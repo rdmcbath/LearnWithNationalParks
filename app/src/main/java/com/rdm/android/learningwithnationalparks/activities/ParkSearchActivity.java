@@ -2,11 +2,14 @@ package com.rdm.android.learningwithnationalparks.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -395,16 +398,22 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 
-	private void showNationalView(){
+	private void showNationalView() {
 
-		String url = getNatParkSearchUrl();
-		Object[] DataTransfer = new Object[2];
-		DataTransfer[0] = mMap;
-		DataTransfer[1] = url;
-		Log.d(LOG_TAG, "showNationalView() called: " + url);
-		GetNationalParksData getNationalParksData = new GetNationalParksData();
-		getNationalParksData.execute(DataTransfer);
-		Snackbar.make(getWindow().getDecorView().getRootView(), R.string.pick_nat_park, Snackbar.LENGTH_LONG).show();
+		if (haveNetworkConnection()) {
+
+			String url = getNatParkSearchUrl();
+			Object[] DataTransfer = new Object[2];
+			DataTransfer[0] = mMap;
+			DataTransfer[1] = url;
+			Log.d(LOG_TAG, "showNationalView() called: " + url);
+			GetNationalParksData getNationalParksData = new GetNationalParksData();
+			getNationalParksData.execute(DataTransfer);
+			Snackbar.make(getWindow().getDecorView().getRootView(), R.string.pick_nat_park, Snackbar.LENGTH_LONG).show();
+		} else {
+			// no connection available, show message
+			Snackbar.make(getWindow().getDecorView().getRootView(), R.string.no_network, Snackbar.LENGTH_LONG).show();
+		}
 	}
 
 	private String getNatParkSearchUrl() {
@@ -418,13 +427,19 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 
 	private void showLocalView() {
 
-		String url = getLocalParkSearchUrl(latitude, longitude);
-		Object[] DataTransfer = new Object[2];
-		DataTransfer[0] = mMap;
-		DataTransfer[1] = url;
-		GetNearbyParksData getNearbyParksData = new GetNearbyParksData();
-		getNearbyParksData.execute(DataTransfer);
-		Log.d(LOG_TAG, "showLocalView Method Called: " + url);
+		if (haveNetworkConnection()) {
+
+			String url = getLocalParkSearchUrl(latitude, longitude);
+			Object[] DataTransfer = new Object[2];
+			DataTransfer[0] = mMap;
+			DataTransfer[1] = url;
+			GetNearbyParksData getNearbyParksData = new GetNearbyParksData();
+			getNearbyParksData.execute(DataTransfer);
+			Log.d(LOG_TAG, "showLocalView Method Called: " + url);
+		} else {
+			// no connection available, show message
+			Snackbar.make(getWindow().getDecorView().getRootView(), R.string.no_network, Snackbar.LENGTH_LONG).show();
+		}
 	}
 
 	private String getLocalParkSearchUrl(double latitude, double longitude) {
@@ -583,6 +598,24 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 			LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
 			mGoogleApiClient.disconnect();
 		}
+	}
+
+	private boolean haveNetworkConnection() {
+		boolean haveConnectedWifi = false;
+		boolean haveConnectedMobile = false;
+
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		assert cm != null;
+		NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+		for (NetworkInfo ni : netInfo) {
+			if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+				if (ni.isConnected())
+					haveConnectedWifi = true;
+			if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+				if (ni.isConnected())
+					haveConnectedMobile = true;
+		}
+		return haveConnectedWifi || haveConnectedMobile;
 	}
 }
 
