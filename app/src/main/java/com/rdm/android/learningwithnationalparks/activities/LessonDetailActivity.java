@@ -12,6 +12,7 @@ import com.rdm.android.learningwithnationalparks.fragments.LessonDetailFragment;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
 import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlan;
 import com.rdm.android.learningwithnationalparks.R;
+import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,15 +25,16 @@ import butterknife.ButterKnife;
 public class LessonDetailActivity extends AppCompatActivity {
     private static final String LOG_TAG = LessonDetailActivity.class.getSimpleName();
 
-    public LessonPlan lessonPlan;
-    public Datum datum;
+    private LessonPlan lessonPlan;
+    private Datum datum;
     private String STATE_KEY = "list_state";
     private Parcelable mListState;
     private LinearLayoutManager mLayoutManager;
     @BindView(R.id.loading_spinner)
     @Nullable
     ProgressBar spinnerProgress;
-    public static final String KEY_LESSON_PLAN = "lesson_plan";
+    private static final String KEY_LESSON_PLAN = "lesson_plan";
+    private AnalyticsUtils analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class LessonDetailActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.lesson_detail_container, lessonDetailFragment)
                 .commit();
+
+        analytics().reportEventFB(getApplicationContext(), getString(R.string.lesson_activity_analytics));
     }
 
     @Override
@@ -82,6 +86,11 @@ public class LessonDetailActivity extends AppCompatActivity {
         if (mListState != null) {
             mLayoutManager.onRestoreInstanceState(mListState);
         }
+    }
+
+    public AnalyticsUtils analytics() {
+        if (analytics == null) analytics = new AnalyticsUtils(this);
+        return analytics;
     }
 }
 

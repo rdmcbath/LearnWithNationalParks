@@ -14,6 +14,7 @@ import android.util.Log;
 import com.rdm.android.learningwithnationalparks.adapters.Sound;
 import com.rdm.android.learningwithnationalparks.fragments.SoundsListFragment;
 import com.rdm.android.learningwithnationalparks.R;
+import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,10 @@ public class SoundsListActivity extends AppCompatActivity {
     //Handles audio focus when playing a sound file
     private AudioManager audioManager;
     private LinearLayoutManager mLayoutManager;
-    public boolean mDualPane;
+    private boolean mDualPane;
     private String STATE_KEY = "list_state";
     private Parcelable mListState;
+	private AnalyticsUtils analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class SoundsListActivity extends AppCompatActivity {
                     .add(R.id.sounds_list_container, soundsListFragment)
                     .commit();
         }
+
+	    analytics().reportEventFB(getApplicationContext(), getString(R.string.sound_activity));
     }
 
     public void handleSoundClick(Sound currentSound) {
@@ -183,6 +187,11 @@ public class SoundsListActivity extends AppCompatActivity {
     public void onBackPressed() {
         releaseMediaPlayer();
         finish();
+    }
+
+    public AnalyticsUtils analytics() {
+        if (analytics == null) analytics = new AnalyticsUtils(this);
+        return analytics;
     }
 }
 

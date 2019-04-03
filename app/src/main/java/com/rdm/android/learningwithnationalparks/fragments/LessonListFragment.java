@@ -177,7 +177,7 @@ public class LessonListFragment extends Fragment {
                     LessonPlan lessonPlan = response.body();
                     Log.i(LOG_TAG, "Response.Body Retrofit Called");
                     mLessonPlanAdapter = new LessonPlanAdapter(lessonPlan, lessonPlan.getData(), getContext());
- //                   mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
                     mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);
                     mLayoutManager.onRestoreInstanceState(mListState);
                     progressBar.setVisibility(View.GONE);
@@ -214,6 +214,7 @@ public class LessonListFragment extends Fragment {
                     LessonPlan lessonPlan = response.body();
                     Log.i(LOG_TAG, "Response.Body Retrofit Called");
                     mLessonPlanAdapter = new LessonPlanAdapter(lessonPlan, lessonPlan.getData(), getContext());
+                    mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
                     mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);
                     mLayoutManager.onRestoreInstanceState(mListState);
                     progressBar.setVisibility(View.GONE);

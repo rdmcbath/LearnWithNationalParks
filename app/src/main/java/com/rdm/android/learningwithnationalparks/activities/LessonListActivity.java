@@ -23,6 +23,7 @@ import com.rdm.android.learningwithnationalparks.fragments.LessonListFragment;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
 import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlan;
 import com.rdm.android.learningwithnationalparks.R;
+import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +39,15 @@ public class LessonListActivity extends AppCompatActivity {
     @BindView(R.id.loading_spinner)
     @Nullable
     ProgressBar spinnerProgress;
-    public boolean mDualPane;
+    private boolean mDualPane;
     private String STATE_KEY = "list_state";
-    public static final String KEY_LESSON_PLAN = "lesson_plan";
+    private static final String KEY_LESSON_PLAN = "lesson_plan";
     private Parcelable mListState;
     private LinearLayoutManager mLayoutManager;
-    public LessonPlan lessonPlan;
-    public List<Datum> data = new ArrayList<>();
-    public Datum datum;
+    private LessonPlan lessonPlan;
+    private List<Datum> data = new ArrayList<>();
+    private Datum datum;
+	private AnalyticsUtils analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class LessonListActivity extends AppCompatActivity {
 		    getSupportActionBar().setTitle(R.string.lesson_list_toolbar_title);
 		    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	    }
+
+	    analytics().reportEventFB(getApplicationContext(), getString(R.string.lesson_activity_analytics));
     }
 
     public void handleClickLessonDetail(Datum datum) {
@@ -115,6 +119,11 @@ public class LessonListActivity extends AppCompatActivity {
             mListState = state.getParcelable(STATE_KEY);
         }
     }
+
+	public AnalyticsUtils analytics() {
+		if (analytics == null) analytics = new AnalyticsUtils(this);
+		return analytics;
+	}
 }
 
 

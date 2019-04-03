@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
 
@@ -8,10 +9,10 @@ android {
 
     signingConfigs {
         config {
-            keyAlias 'rdmkey'
-            keyPassword 'rdm1451'
-            storeFile file('/Users/rebecca.mcbath/Desktop/NationalParksGooglePrivateKey/private_key.pepk')
-            storePassword 'rdm1451'
+            keyAlias 'ignore'
+            keyPassword 'ignore'
+            storeFile file('ignore')
+            storePassword 'ignore'
         }
     }
     compileSdkVersion 28
@@ -21,8 +22,8 @@ android {
         applicationId "com.rdm.android.learningwithnationalparks"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 6
-        versionName "4.2"
+        versionCode 7
+        versionName "4.3"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -61,11 +62,14 @@ android {
     }
     productFlavors {
     }
-
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.firebase:firebase-crash:16.2.1'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         // Necessary if your app targets Marshmallow (since Espresso
         // hasn't moved to Marshmallow yet)
@@ -99,7 +103,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-analytics:16.0.8'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.libraries.places:places:1.0.0'
+    implementation 'com.google.android.libraries.places:places:1.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'org.parceler:parceler:1.1.6'
 }
+
+apply plugin: 'com.google.gms.google-services'

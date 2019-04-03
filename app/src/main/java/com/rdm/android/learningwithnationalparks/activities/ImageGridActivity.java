@@ -16,6 +16,7 @@ import com.rdm.android.learningwithnationalparks.networkFlickr.FlickrPhoto;
 import com.rdm.android.learningwithnationalparks.networkFlickr.FlickrResponse;
 import com.rdm.android.learningwithnationalparks.networkFlickr.Photos;
 import com.rdm.android.learningwithnationalparks.R;
+import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class ImageGridActivity extends AppCompatActivity {
     private List<FlickrPhoto> photoItems = new ArrayList<>();
     private Context context;
     private LinearLayoutManager mLayoutManager;
+    private AnalyticsUtils analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,13 @@ public class ImageGridActivity extends AppCompatActivity {
                 .add(R.id.image_grid_container, imageGridFragment)
                 .commit();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.image_grid_toolbar_title);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+
+	    analytics().reportEventFB(getApplicationContext(), getString(R.string.image_activity_analytics));
     }
 
     @Override
@@ -83,5 +87,10 @@ public class ImageGridActivity extends AppCompatActivity {
         if (mListState != null) {
             mLayoutManager.onRestoreInstanceState(mListState);
         }
+    }
+
+    public AnalyticsUtils analytics() {
+        if (analytics == null) analytics = new AnalyticsUtils(this);
+        return analytics;
     }
 }

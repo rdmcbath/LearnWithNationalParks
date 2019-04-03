@@ -60,6 +60,7 @@ import com.rdm.android.learningwithnationalparks.R;
 import com.rdm.android.learningwithnationalparks.fragments.NationalParkSearchFragment;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNationalParksData;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNearbyParksData;
+import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
 
 import java.util.Locale;
 
@@ -87,6 +88,7 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 	private SharedPreferences sharedPrefs;
 	private GoogleMap mMap;
 	private Marker marker;
+	private AnalyticsUtils analytics;
 	double latitude;
 	double longitude;
 	GoogleApiClient mGoogleApiClient;
@@ -124,6 +126,8 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 		mapFragment = SupportMapFragment.newInstance();
 		getSupportFragmentManager().beginTransaction().add(R.id.park_search_container, mapFragment).commit();
 		mapFragment.getMapAsync(this);
+
+		analytics().reportEventFB(getApplicationContext(), getString(R.string.park_activity_analytics));
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -616,6 +620,11 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 					haveConnectedMobile = true;
 		}
 		return haveConnectedWifi || haveConnectedMobile;
+	}
+
+	public AnalyticsUtils analytics() {
+		if (analytics == null) analytics = new AnalyticsUtils(this);
+		return analytics;
 	}
 }
 

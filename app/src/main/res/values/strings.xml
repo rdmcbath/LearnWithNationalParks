@@ -132,7 +132,7 @@
         quickly fills with water, erupts, drains, followed by the longer eruption of Little
         Anemone Geyser</string>
     <string name="paintpotdes">Slurp, gurgle, plop: enjoy the unique sound of gasses venting into a pool of wet clay.
-        Yellowstone National Park in Wyomging.</string>
+        Yellowstone National Park in Wyoming.</string>
     <string name="eagledes">Yellowstone National Park, Wyoming</string>
     <string name="bisondes">Yellowstone National Park, Wyoming</string>
     <string name="coyotedes">Mojave National Preserve, California</string>
@@ -156,6 +156,14 @@
     <string name="wolfdes">Denali National Park and Preserve in Alaska</string>
     <string name="lakedes">Listen to the rare, wintertime song of Yellowstone Lake as the ice reacts
         to changing temperatures.</string>
+
+    <!-- Strings for Firebase Analytics  -->
+    <string name="main_activity_analytics">main activity</string>
+    <string name="lesson_activity_analytics">lesson activity</string>
+    <string name="image_activity_analytics">image activity</string>
+    <string name="image_detail_activity_analytics">image detail activity</string>
+    <string name="sound_activity_analytics">sound activity</string>
+    <string name="park_activity_analytics">park activity</string>
 
     <!-- Strings for API keys National Parks and Flickr  -->
     <string name="api_key_nps">ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu</string>

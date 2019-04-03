@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -29,6 +30,7 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.rdm.android.learningwithnationalparks.fragments.LocalParkSearchFragment;
 import com.rdm.android.learningwithnationalparks.R;
+import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
 
 import java.util.Objects;
 
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private static final int REQUEST_CHECK_SETTINGS = 1000;
     LocalParkSearchFragment mParkSearchFragment;
     protected LocationRequest locationRequest;
+	private AnalyticsUtils analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +164,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         locationRequest.setInterval(30 * 1000);
         locationRequest.setFastestInterval(5 * 1000);
 
+        analytics().reportEventFB(getApplicationContext(), getString(R.string.main_activity_analytics));
+
     }
 
     @Override
@@ -250,6 +255,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+    }
+
+    public AnalyticsUtils analytics() {
+        if (analytics == null) analytics = new AnalyticsUtils(this);
+        return analytics;
     }
 }
 
