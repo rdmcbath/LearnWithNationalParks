@@ -9,17 +9,6 @@
 
 # Add any project specific keep options here:
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
-
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
-
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
@@ -27,6 +16,12 @@
 # Preverification is irrelevant for the dex compiler and the Dalvik VM, so we can switch it off with the -dontpreverify option.
 -dontpreverify
 -repackageclasses
+-allowaccessmodification
+-optimizations !code/simplification/arithmetic
+-optimizationpasses 3
+
+# We're keeping annotations, since they might be used by custom RemoteViews.
+-keepattributes *Annotation*
 
 # Retain source file names and line numbers for stack traces to make debugging easier
 -keepattributes SourceFile, LineNumberTable
@@ -94,9 +89,21 @@
 -dontnote com.fasterxml.**
 -dontnote org.codehaus.**
 
-# Internal DTOs
-#-keep class com.nextraq.WorkerConnect.** {*;}
-#-dontnote com.nextraq.WorkerConnect.**
 -keep class com.rdm.android.learningwithnationalparks.networkFlickr.** {*;}
 -keep class com.rdm.android.learningwithnationalparks.networkLessons.** {*;}
 -keep class com.rdm.android.learningwithnationalparks.data.** {*;}
+
+# let ProGuard know it's ok that the library references some classes that are not available in all versions of the API:
+-dontwarn android.support.**
+
+# For serialization classes
+-keepclassmembers class * implements java.io.Serializable {
+     private static final java.io.ObjectStreamField[] serialPersistentFields;
+     private void writeObject(java.io.ObjectOutputStream);
+     private void readObject(java.io.ObjectInputStream);
+     java.lang.Object writeReplace();
+     java.lang.Object readResolve();
+}
+
+-ignorewarnings
+

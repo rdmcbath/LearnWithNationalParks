@@ -62,7 +62,7 @@ public class SoundsListActivity extends AppCompatActivity {
                     .commit();
         }
 
-	    analytics().reportEventFB(getApplicationContext(), getString(R.string.sound_activity));
+	    analytics().reportEventFB(getApplicationContext(), getString(R.string.sound_activity_analytics));
     }
 
     public void handleSoundClick(Sound currentSound) {

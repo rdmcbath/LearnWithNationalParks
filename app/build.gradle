@@ -9,10 +9,10 @@ android {
 
     signingConfigs {
         config {
-            keyAlias 'ignore'
-            keyPassword 'ignore'
-            storeFile file('ignore')
-            storePassword 'ignore'
+            keyAlias 'keyrdm'
+            keyPassword 'rdm1451'
+            storeFile file('/Users/rebecca.mcbath/Documents/AndroidStudioProjectsPersonal/Android/LearningWithNationalParks-master/keystore.jks')
+            storePassword 'rdm1451'
         }
     }
     compileSdkVersion 28
@@ -69,7 +69,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-crash:16.2.1'
     implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
-
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         // Necessary if your app targets Marshmallow (since Espresso
         // hasn't moved to Marshmallow yet)
@@ -89,7 +88,7 @@ dependencies {
     implementation 'com.android.support:support-fragment:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
-    implementation "com.android.support:support-emoji:28.0.0"
+    implementation 'com.android.support:support-emoji:28.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'

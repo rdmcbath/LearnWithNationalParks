@@ -70,19 +70,20 @@ public class LessonListFragment extends Fragment {
     private String sort_criteria;
     private String x = "title";
     private Unbinder unbinder;
+	View rootView;
 
     public LessonListFragment() {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onViewCreated(container, savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
 
         if (savedInstanceState != null) {
             data = savedInstanceState.getParcelableArrayList(LIST_IMPORT);
         }
 
-        View rootView = inflater.inflate(R.layout.fragment_lesson_plan_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_lesson_plan_list, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         mLessonPlanRecyclerView.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
@@ -112,13 +113,17 @@ public class LessonListFragment extends Fragment {
 	            int pref = sharedPrefs.getInt(SORT_ORDER_PREFS_KEY, SORT_ORDER_TITLE);
 
 	            if (pref == SORT_ORDER_TITLE) {
-	            	loadLessonPlanListByTitle();
-		            Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.sorted_by_title, Snackbar.LENGTH_LONG).show();
-		            Log.i(LOG_TAG, "loadLessonPlanList Title Method Called");
+	            	if (isAdded()) {
+			            loadLessonPlanListByTitle();
+			            Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.sorted_by_title, Snackbar.LENGTH_LONG).show();
+			            Log.i(LOG_TAG, "loadLessonPlanList Title Method Called");
+		            }
 	            } else if (pref == SORT_ORDER_SUBJECT) {
-		            loadLessonPlanListBySubject();
-		            Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.sorted_by_subject, Snackbar.LENGTH_LONG).show();
-		            Log.i(LOG_TAG, "loadLessonPlanList Subject Method Called");
+		            if (isAdded()) {
+			            loadLessonPlanListBySubject();
+			            Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), R.string.sorted_by_subject, Snackbar.LENGTH_LONG).show();
+			            Log.i(LOG_TAG, "loadLessonPlanList Subject Method Called");
+		            }
 	            }
 
             } else {
@@ -146,17 +151,23 @@ public class LessonListFragment extends Fragment {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (id == R.id.action_subject_search) {
             sharedPrefs.edit().putInt(SORT_ORDER_PREFS_KEY, SORT_ORDER_SUBJECT).apply();
-            loadLessonPlanListBySubject();
-            // Show snackbar to verify sort order by subject
-            Snackbar snackbar = Snackbar.make(frameLayout, R.string.sorted_by_subject, Snackbar.LENGTH_SHORT);
-            snackbar.show();
+
+	        if (isAdded()) {
+		        loadLessonPlanListBySubject();
+		        // Show snackbar to verify sort order by subject
+		        Snackbar snackbar = Snackbar.make(frameLayout, R.string.sorted_by_subject, Snackbar.LENGTH_SHORT);
+		        snackbar.show();
+	        }
         }
         if (id == R.id.action_title_search) {
             sharedPrefs.edit().putInt(SORT_ORDER_PREFS_KEY, SORT_ORDER_TITLE).apply();
-            loadLessonPlanListByTitle();
-            // Show snackbar to verify sort order by title
-            Snackbar snackbar = Snackbar.make(frameLayout, R.string.sorted_by_title, Snackbar.LENGTH_SHORT);
-            snackbar.show();
+
+	        if (isAdded()) {
+		        loadLessonPlanListByTitle();
+		        // Show snackbar to verify sort order by title
+		        Snackbar snackbar = Snackbar.make(frameLayout, R.string.sorted_by_title, Snackbar.LENGTH_SHORT);
+		        snackbar.show();
+	        }
         }
         if (id == R.id.action_saved_search) {
             Intent intent = new Intent(this.getContext(), SavedLessonActivity.class);
@@ -176,8 +187,12 @@ public class LessonListFragment extends Fragment {
                 if (response.isSuccessful()) {
                     LessonPlan lessonPlan = response.body();
                     Log.i(LOG_TAG, "Response.Body Retrofit Called");
+	                mLessonPlanRecyclerView = rootView.findViewById(R.id.lesson_plan_recycler);
+                    progressBar = rootView.findViewById(R.id.progress_bar);
+                    mLayoutManager = new LinearLayoutManager(getActivity());
+	                mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+	                mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
                     mLessonPlanAdapter = new LessonPlanAdapter(lessonPlan, lessonPlan.getData(), getContext());
-                    mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
                     mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);
                     mLayoutManager.onRestoreInstanceState(mListState);
                     progressBar.setVisibility(View.GONE);
@@ -213,8 +228,12 @@ public class LessonListFragment extends Fragment {
                 if (response.isSuccessful()) {
                     LessonPlan lessonPlan = response.body();
                     Log.i(LOG_TAG, "Response.Body Retrofit Called");
+	                mLessonPlanRecyclerView = rootView.findViewById(R.id.lesson_plan_recycler);
+	                progressBar = rootView.findViewById(R.id.progress_bar);
+	                mLayoutManager = new LinearLayoutManager(getActivity());
+	                mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+	                mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
                     mLessonPlanAdapter = new LessonPlanAdapter(lessonPlan, lessonPlan.getData(), getContext());
-                    mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
                     mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);
                     mLayoutManager.onRestoreInstanceState(mListState);
                     progressBar.setVisibility(View.GONE);

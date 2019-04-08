@@ -65,6 +65,7 @@ public class ImageGridFragment extends Fragment implements SwipeRefreshLayout.On
 	private Parcelable mListState;
 	private LinearLayoutManager mLayoutManager;
 	private ImageAdapter mImageAdapter;
+	private View rootView;
 
 	public ImageGridFragment() {
 	}
@@ -76,7 +77,7 @@ public class ImageGridFragment extends Fragment implements SwipeRefreshLayout.On
 		if (savedInstanceState != null) {
 			photoItems = savedInstanceState.getParcelableArrayList(LIST_IMPORT);
 		}
-		View rootView = inflater.inflate(R.layout.fragment_images, container, false);
+		rootView = inflater.inflate(R.layout.fragment_images, container, false);
 		ButterKnife.bind(this, rootView);
 		mImageGridRecyclerView.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
@@ -131,6 +132,8 @@ public class ImageGridFragment extends Fragment implements SwipeRefreshLayout.On
 					FlickrResponse flickrResponse = response.body();
 					photoItems = flickrResponse.getPhotos().getPhotoItems();
 					Log.d(LOG_TAG, "Response.Body Retrofit Called");
+					mImageGridRecyclerView = rootView.findViewById(R.id.image_grid_recycler);
+					progressBar = rootView.findViewById(R.id.progress_bar);
 					mImageAdapter = new ImageAdapter(photoItems, description, getContext());
 					mImageGridRecyclerView.setAdapter(mImageAdapter);
 					mLayoutManager.onRestoreInstanceState(mListState);
