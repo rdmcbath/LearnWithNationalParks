@@ -9,10 +9,10 @@ android {
 
     signingConfigs {
         config {
-            keyAlias 'keyrdm'
-            keyPassword 'rdm1451'
-            storeFile file('/Users/rebecca.mcbath/Documents/AndroidStudioProjectsPersonal/Android/LearningWithNationalParks-master/keystore.jks')
-            storePassword 'rdm1451'
+            keyAlias 'ignore'
+            keyPassword 'ignore'
+            storeFile file('ignore')
+            storePassword 'ignore'
         }
     }
     compileSdkVersion 28
