@@ -42,6 +42,7 @@
     <string name="hybrid_map">Hybrid Map</string>
     <string name="satellite_map">Satellite Map</string>
     <string name="terrain_map">Terrain Map</string>
+    <string name="map_type_menu">Map type popup menu</string>
 
     <string name="map_action_settings">Options</string>
     <string name="map_search_action_natparks">Show national parks</string>
@@ -104,7 +105,7 @@
     <string name="flickr_widget_image">flickr_widget_image</string>
     <string name="content_image">Image Content</string>
     <string name="link_to_flickr_page">National Parks and Places on Flickr: https://www.flickr.com/groups/usnationalparksandplaces/members/</string>
-    <string name="extra_text_share">Great pic from the National Parks Group on Flickr!</string>
+    <string name="extra_text_share">Great pic from the Flickr National Parks Group!</string>
 
     <!-- Strings for Sound Gallery Activities: Sounds Title  -->
     <string name="sounds_toolbar_title">From NPS Sound Gallery</string>
@@ -163,7 +164,7 @@
     <string name="image_activity_analytics">image activity</string>
     <string name="image_detail_activity_analytics">image detail activity</string>
     <string name="sound_activity_analytics">sound activity</string>
-    <string name="park_activity_analytics">park activity</string>
+    <string name="park_activity_analytics">map activity</string>
 
     <!-- Strings for API keys National Parks and Flickr  -->
     <string name="api_key_nps">ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu</string>

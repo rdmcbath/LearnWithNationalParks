@@ -6,8 +6,7 @@
               android:layout_height="match_parent"
               xmlns:tools="http://schemas.android.com/tools"
               tools:context=".activities.ParkSearchActivity"
-              android:fitsSystemWindows="true"
-              xmlns:app="http://schemas.android.com/apk/res-auto">
+              android:fitsSystemWindows="true">
 
     <include
         android:id="@+id/tool_bar"
@@ -19,33 +18,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?android:attr/actionBarSize">
-
-            <LinearLayout
-                android:id="@+id/mapButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="80dp"
-                android:orientation="vertical">
-
-                <ImageButton
-                    style="@style/MaterialTheme.Map.Button"
+                <Button
+                    android:id="@+id/map_type_icon"
+                    android:drawableStart="@drawable/ic_layers"
+                    android:drawablePadding="4dp"
+                    android:background="@drawable/map_button"
+                    android:text="Map Type"
+                    android:textColor="@color/darkGrey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
                     android:onClick="showMapTypeMenu"
-                    app:srcCompat="@drawable/ic_layers"/>
-
-            </LinearLayout>
-        </RelativeLayout>
+                    android:layout_gravity="start"
+                    android:contentDescription="@string/map_type_menu"/>
 
     </FrameLayout>
-
 </LinearLayout>

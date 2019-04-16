@@ -5,6 +5,8 @@
     <color name="colorAccent">#d81b60</color>
     <color name="white">#FFFFFF</color>
     <color name="lightestBlue">#B0C4DE</color>
+    <color name="darkGrey">#696969</color>
+
 
     <!-- Background color for the sounds category -->
     <color name="category_sounds">#FD8E09</color>
@@ -17,7 +19,7 @@
 
     <!-- Background color for the map category -->
     <color name="category_map">#16AFCA</color>
-
     <color name="mapButton">#aaffffff</color>
     <color name="mapButtonStroke">#ccaaaaaa</color>
+
 </resources>

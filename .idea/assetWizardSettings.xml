@@ -151,7 +151,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_layers_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_terrain_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -161,7 +161,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_layers" />
+                            <entry key="outputName" value="ic_terrain_compat" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="$USER_HOME$/Desktop/park_tower.svg" />
                           </map>

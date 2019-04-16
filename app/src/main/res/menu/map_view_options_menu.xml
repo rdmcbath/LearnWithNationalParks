@@ -7,13 +7,13 @@
     <item
         android:id="@+id/action_national_view"
         android:orderInCategory="2"
-        android:title="@string/map_search_action_natparks"
+        android:title="@string/pick_nat_park"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_local_view"
         android:orderInCategory="3"
-        android:title="@string/map_search_action_localparks"
+        android:title="@string/pick_local_park"
         app:showAsAction="never" />
 
 </menu>

@@ -107,3 +107,8 @@
 
 -ignorewarnings
 
+-keepclassmembernames class android.support.v7.widget.PopupMenu {
+private android.support.v7.internal.view.menu.MenuPopupHelper mPopup; }
+
+-keepclassmembernames class android.support.v7.internal.view.menu.MenuPopupHelper {
+public void setForceShowIcon(boolean); }

@@ -51,13 +51,12 @@ public class GetNearbyParksData extends AsyncTask<Object, String, String> {
             double lng = Double.parseDouble(googlePlace.get("lng"));
             String placeName = googlePlace.get("place_name");
             String vicinity = googlePlace.get("vicinity");
-            String id = googlePlace.get("id");
             LatLng latLng = new LatLng(lat, lng);
             markerOptions.position(latLng);
             markerOptions.title(placeName + ": " + vicinity);
 	        mMap.addMarker(markerOptions);
-	        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-	        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8));
+	        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+	        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
         }
     }
 }
