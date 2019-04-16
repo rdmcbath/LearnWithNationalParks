@@ -90,7 +90,7 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 	private static final int VIEW_NATIONAL = 0;
 	private static final int VIEW_LOCAL = 1;
 	private static final String PREFS_VIEW_OPTION = "com.rdm.android.learningwithnationalparks.view_option";
-	private static final String PREFS_LOCATE_MAP_TYPE = "com.rdm.android.learningwithnationalparks.map_type";
+	private static final String PREFS_MAP_TYPE = "com.rdm.android.learningwithnationalparks.map_type";
 	private SharedPreferences sharedPrefs;
 	private GoogleMap mMap;
 	private Marker marker;
@@ -211,7 +211,7 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 			showNationalView();
 		}
 
-		int mapType = sharedPrefs.getInt(PREFS_LOCATE_MAP_TYPE, GoogleMap.MAP_TYPE_NORMAL); //default is normal map type
+		int mapType = sharedPrefs.getInt(PREFS_MAP_TYPE, GoogleMap.MAP_TYPE_NORMAL); //default is normal map type
 		mMap.setMapType(mapType);
 		setMapStyle(mMap); //Load the map style from json raw file
 		setMapLongClick(mMap); //Set a long click listener to drop a new pin on the map;
@@ -585,15 +585,19 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 				switch (item.getItemId()) {
 					case R.id.map_type_normal:
 						mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+						sharedPrefs.edit().putInt(PREFS_MAP_TYPE, GoogleMap.MAP_TYPE_NORMAL).apply();
 						break;
 					case R.id.map_type_satellite:
 						mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+						sharedPrefs.edit().putInt(PREFS_MAP_TYPE, GoogleMap.MAP_TYPE_SATELLITE).apply();
 						break;
 					case R.id.map_type_hybrid:
 						mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+						sharedPrefs.edit().putInt(PREFS_MAP_TYPE, GoogleMap.MAP_TYPE_HYBRID).apply();
 						break;
 					case R.id.map_type_terrain:
 						mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+						sharedPrefs.edit().putInt(PREFS_MAP_TYPE, GoogleMap.MAP_TYPE_TERRAIN).apply();
 						break;
 					default:
 						mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
