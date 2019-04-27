@@ -5,14 +5,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.rdm.android.learningwithnationalparks.adapters.ImageAdapter;
 import com.rdm.android.learningwithnationalparks.networkFlickr.Description;
 import com.rdm.android.learningwithnationalparks.networkFlickr.FlickrClient;
@@ -29,18 +22,21 @@ import com.rdm.android.learningwithnationalparks.networkFlickr.FlickrResponse;
 import com.rdm.android.learningwithnationalparks.networkFlickr.Photos;
 import com.rdm.android.learningwithnationalparks.networkFlickr.RetrofitFlickr;
 import com.rdm.android.learningwithnationalparks.R;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.rdm.android.learningwithnationalparks.R.drawable.custom_progress_spinner;
 
 public class ImageGridFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 	private static final String LOG_TAG = ImageGridFragment.class.getSimpleName();

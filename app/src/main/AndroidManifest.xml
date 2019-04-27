@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.rdm.android.learningwithnationalparks">
 
     <supports-screens
@@ -87,6 +88,7 @@
         <activity
             android:name="com.rdm.android.learningwithnationalparks.activities.ImageDetailActivity"
             android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
             android:parentActivityName="com.rdm.android.learningwithnationalparks.activities.ImageGridActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -118,7 +120,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
            </intent-filter>
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rdm.android.learningwithnationalparks.activities.MainActivity" />

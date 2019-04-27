@@ -7,7 +7,7 @@
               android:padding="1dp"
               android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/image_card_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/card_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?android:attr/actionBarSize"
@@ -55,9 +55,8 @@
                             tools:text="Image Title" />
 
                     </LinearLayout>
-
-                </android.support.v7.widget.Toolbar>
+                </androidx.appcompat.widget.Toolbar>
             </RelativeLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

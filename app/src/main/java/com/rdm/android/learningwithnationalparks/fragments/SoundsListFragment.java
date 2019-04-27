@@ -2,22 +2,19 @@ package com.rdm.android.learningwithnationalparks.fragments;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.rdm.android.learningwithnationalparks.adapters.Sound;
 import com.rdm.android.learningwithnationalparks.adapters.SoundAdapter;
 import com.rdm.android.learningwithnationalparks.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -96,7 +93,7 @@ public class SoundsListFragment extends Fragment {
                 R.drawable.singinglake, true));
 
             mLayoutManager = new LinearLayoutManager(getActivity());
-            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mLayoutManager.setOrientation(RecyclerView.VERTICAL);
             mSoundRecyclerView.setLayoutManager(mLayoutManager);
             SoundAdapter mSoundAdapter = new SoundAdapter(getActivity(), sound, sounds, mSoundResourceID,
                     mImageResourceID);

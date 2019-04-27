@@ -5,15 +5,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,16 +16,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
+import com.google.android.material.snackbar.Snackbar;
 import com.rdm.android.learningwithnationalparks.adapters.SavedLessonAdapter;
 import com.rdm.android.learningwithnationalparks.data.LessonContract;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
 import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlan;
 import com.rdm.android.learningwithnationalparks.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -72,7 +70,7 @@ public class SavedLessonFragment extends Fragment implements LoaderManager.Loade
 
         mCursorAdapter = new SavedLessonAdapter(data, getContext());
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mSavedRecyclerView.setLayoutManager(mLayoutManager);
         mSavedRecyclerView.setAdapter(mCursorAdapter);
         mEmptyView.setVisibility(View.GONE);
@@ -140,7 +138,7 @@ public class SavedLessonFragment extends Fragment implements LoaderManager.Loade
 
         // create and return a CursorLoader that will take care of creating a Cursor
         // for the data being displayed.
-        return new android.support.v4.content.CursorLoader(getContext(), mCurrentSavedUri,
+        return new CursorLoader(getContext(), mCurrentSavedUri,
                 projection, null, null, null);
     }
 
@@ -157,7 +155,7 @@ public class SavedLessonFragment extends Fragment implements LoaderManager.Loade
         }
         // Swap the new cursor in. (The framework will take care of closing the old cursor
         // once we return.)
-        mCursorAdapter.swapCursor(cursor);
+        mCursorAdapter.setCursor(cursor);
     }
 
     @Override
@@ -165,7 +163,7 @@ public class SavedLessonFragment extends Fragment implements LoaderManager.Loade
         Log.i(LOG_TAG, "TEST:OnLOAD RESET");
         // This is called when the last Cursor provided to onLoadFinished() above is about to be
         // closed.  We need to make sure we are no longer using it.
-        mCursorAdapter.swapCursor(null);
+        mCursorAdapter.setCursor(null);
     }
 
 

@@ -7,29 +7,28 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.rdm.android.learningwithnationalparks.data.LessonContract;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
 import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlan;
 import com.rdm.android.learningwithnationalparks.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -41,7 +40,7 @@ public class SavedLessonDetailFragment extends Fragment implements View.OnClickL
     public List<Datum> data = new ArrayList<>();
     public Datum datum;
     private static final String IMPORT = "lesson_detail";
-    public static final String KEY_LESSON_PLAN = "lesson_plan";
+    private static final String KEY_LESSON_PLAN = "lesson_plan";
     private Parcelable mListState;
     private LinearLayoutManager mLayoutManager;
     public boolean mFabSaved;
@@ -55,7 +54,6 @@ public class SavedLessonDetailFragment extends Fragment implements View.OnClickL
     Toolbar toolbar;
     @BindView(R.id.coordinator_layout_lesson_plan_detail)
     CoordinatorLayout coordinatorLayout;
-    private Unbinder unbinder;
     public boolean mDualPane;
 
     /**
@@ -78,7 +76,7 @@ public class SavedLessonDetailFragment extends Fragment implements View.OnClickL
         }
 
         View rootView = inflater.inflate(R.layout.fragment_saved_lesson_plan_detail, container, false);
-        unbinder = ButterKnife.bind(this, rootView);
+        Unbinder unbinder = ButterKnife.bind(this, rootView);
 
         // Set the title of the chosen lesson plan and show the Up button in the action bar.
         collapsingToolbar.setTitle(datum.getTitle());
@@ -101,7 +99,7 @@ public class SavedLessonDetailFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         Log.i(LOG_TAG, "onClick: FAB in LessonDetailFragment has been clicked");
         checkIfLessonSaved();
-        if (checkIfLessonSaved() == true) {
+        if (checkIfLessonSaved()) {
             deleteLesson();
             fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_bookmark_border));
         } else {
@@ -111,7 +109,7 @@ public class SavedLessonDetailFragment extends Fragment implements View.OnClickL
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(IMPORT, datum);
     }
@@ -122,7 +120,7 @@ public class SavedLessonDetailFragment extends Fragment implements View.OnClickL
     }
 
     // Helper method to assist in determining if the lesson is already in the saved table
-    public boolean checkIfLessonSaved() {
+    private boolean checkIfLessonSaved() {
         String title = datum.getTitle();
 
         Long currentLessonId = datum.getId();
@@ -153,7 +151,7 @@ public class SavedLessonDetailFragment extends Fragment implements View.OnClickL
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void saveLesson() {
+    private void saveLesson() {
 
         Long id = datum.getId();
         String gradeLevel = datum.getGradeLevel();

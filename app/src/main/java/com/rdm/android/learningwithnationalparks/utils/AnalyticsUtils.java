@@ -3,12 +3,13 @@ package com.rdm.android.learningwithnationalparks.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.rdm.android.learningwithnationalparks.fragments.LessonListFragment;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created by Rebecca McBath

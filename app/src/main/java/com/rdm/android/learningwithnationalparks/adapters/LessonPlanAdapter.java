@@ -2,23 +2,19 @@ package com.rdm.android.learningwithnationalparks.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.rdm.android.learningwithnationalparks.activities.LessonListActivity;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
 import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlan;
 import com.rdm.android.learningwithnationalparks.R;
-
-import java.util.ArrayList;
 import java.util.List;
-
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,6 +22,7 @@ public class LessonPlanAdapter extends RecyclerView.Adapter<LessonPlanAdapter.Vi
     private static final String LOG_TAG = LessonPlanAdapter.class.getSimpleName();
 
     public LessonPlan lessonPlan;
+    private LessonListActivity lessonListActivity;
     public List<Datum> data;
     public Datum datum;
     private Context context;
@@ -67,7 +64,7 @@ public class LessonPlanAdapter extends RecyclerView.Adapter<LessonPlanAdapter.Vi
         @BindView(R.id.lesson_duration)
         TextView lessonDuration;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -77,9 +74,7 @@ public class LessonPlanAdapter extends RecyclerView.Adapter<LessonPlanAdapter.Vi
         public void onClick(View v) {
             Log.i(LOG_TAG, "onClick in LessonPlanAdapter Called");
 
-            if (context instanceof LessonListActivity) {
-
-                LessonListActivity lessonListActivity = ((LessonListActivity) context);
+                LessonListActivity lessonListActivity = (LessonListActivity) context;
                 Datum datum = lessonPlan.getData().get(getAdapterPosition());
                 Bundle data = new Bundle();
                 data.putParcelable(KEY_LESSON_PLAN, datum);
@@ -91,7 +86,6 @@ public class LessonPlanAdapter extends RecyclerView.Adapter<LessonPlanAdapter.Vi
                 fragmentGet.setArguments(args);
             }
         }
-    }
 
     @Override
     public int getItemCount() {

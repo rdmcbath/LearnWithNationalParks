@@ -3,64 +3,70 @@ package com.rdm.android.learningwithnationalparks.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.rdm.android.learningwithnationalparks.activities.SavedLessonDetailActivity;
 import com.rdm.android.learningwithnationalparks.data.LessonContract;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
 import com.rdm.android.learningwithnationalparks.R;
-
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SavedLessonAdapter extends RecyclerViewCursorAdapter<SavedLessonAdapter.ViewHolder> {
+public class SavedLessonAdapter extends RecyclerView.Adapter<SavedLessonAdapter.ViewHolder> {
     private static final String LOG_TAG = SavedLessonAdapter.class.getSimpleName();
 
+    private Cursor cursor = null;
     public Datum datum;
     private Context context;
     @BindView(R.id.empty_view)
     @Nullable
     TextView mEmptyView;
-    public static final String KEY_LESSON_PLAN = "lesson_plan";
+    private static final String KEY_LESSON_PLAN = "lesson_plan";
 
     public SavedLessonAdapter(List<Datum> data, Context context) {
-        super(null);
         this.context = context;
 
         Cursor cursor = context.getContentResolver()
                 .query(LessonContract.SavedEntry.CONTENT_URI, null, null, null, null);
 
-        swapCursor(cursor);
+        setCursor(cursor);
     }
 
+    public void setCursor(Cursor cursor) {
+        this.cursor = cursor;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.saved_lesson_card_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    protected void onBindViewHolder(ViewHolder holder, Cursor cursor) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        this.cursor.moveToPosition(position);
+        holder.bindModel(this.cursor);
+    }
 
-        holder.savedLessonTitle.setText(cursor.getString(cursor.getColumnIndex
-                (LessonContract.SavedEntry.COLUMN_TITLE)));
-        holder.savedLessonObjective.setText(cursor.getString(cursor.getColumnIndex
-                (LessonContract.SavedEntry.COLUMN_OBJECTIVE)));
-        holder.savedLessonGradeLevel.setText(cursor.getString(cursor.getColumnIndex
-                (LessonContract.SavedEntry.COLUMN_GRADE_LEVEL)));
-        holder.savedLessonSubject.setText(cursor.getString(cursor.getColumnIndex
-                (LessonContract.SavedEntry.COLUMN_SUBJECT)));
-        holder.savedLessonDuration.setText(cursor.getString(cursor.getColumnIndex
-                (LessonContract.SavedEntry.COLUMN_DURATION)));
+    @Override
+    public int getItemCount() {
+        if (cursor == null) {
+            return 0;
+        } else {
+            return cursor.getCount();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -81,12 +87,25 @@ public class SavedLessonAdapter extends RecyclerViewCursorAdapter<SavedLessonAda
             itemView.setOnClickListener(this);
         }
 
-        @Override
+        public void bindModel(Cursor cursor) {
+            savedLessonTitle.setText(cursor.getString(cursor.getColumnIndex
+                    (LessonContract.SavedEntry.COLUMN_TITLE)));
+            savedLessonObjective.setText(cursor.getString(cursor.getColumnIndex
+                    (LessonContract.SavedEntry.COLUMN_OBJECTIVE)));
+            savedLessonGradeLevel.setText(cursor.getString(cursor.getColumnIndex
+                    (LessonContract.SavedEntry.COLUMN_GRADE_LEVEL)));
+            savedLessonSubject.setText(cursor.getString(cursor.getColumnIndex
+                    (LessonContract.SavedEntry.COLUMN_SUBJECT)));
+            savedLessonDuration.setText(cursor.getString(cursor.getColumnIndex
+                    (LessonContract.SavedEntry.COLUMN_DURATION)));
+        }
+
+
+    @Override
         public void onClick(View view) {
             Log.i(LOG_TAG, "onClick in SavedLessonAdapter Called");
 
             // Start the LessonDetail activity
-            Cursor cursor = getCursor();
             cursor.moveToPosition(getAdapterPosition());
             String title = cursor.getString(cursor.getColumnIndex
                     (LessonContract.SavedEntry.COLUMN_TITLE));

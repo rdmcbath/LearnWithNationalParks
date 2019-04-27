@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout_image_detail"
@@ -9,7 +11,7 @@
     tools:context="com.rdm.android.learningwithnationalparks.fragments.ImageDetailFragment"
     tools:ignore="MergeRootFrame">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height_image_detail"
@@ -18,7 +20,7 @@
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,14 +31,14 @@
             app:expandedTitleMarginEnd="4dp"
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="@dimen/toolbar_elevation"
                 app:layout_collapseMode="pin"
                 android:layout_gravity="top"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
             <ImageView
                 android:id="@+id/image_detail_photo"
@@ -48,12 +50,12 @@
                 app:layout_collapseMode="pin"
                 app:layout_collapseParallaxMultiplier="0.9"
                 android:transitionName="@string/transition_photo"
-                android:contentDescription="@string/flickr_image" />
+                android:contentDescription="@string/flickr_image"/>
 
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -99,15 +101,15 @@
                 android:text="@string/link_to_flickr_page" />
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_share"
         android:stateListAnimator="@animator/fab_state_list_anim"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="center_vertical|start"
-        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginBottom="@dimen/fab_margin"
         app:rippleColor="@color/category_lessons"
         app:backgroundTint="@color/category_images"
@@ -117,4 +119,4 @@
         app:srcCompat="@drawable/ic_share"
         android:contentDescription="@string/fab_share" />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

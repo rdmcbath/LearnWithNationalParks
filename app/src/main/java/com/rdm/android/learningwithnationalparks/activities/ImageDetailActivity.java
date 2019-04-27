@@ -2,16 +2,18 @@ package com.rdm.android.learningwithnationalparks.activities;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-
 import com.rdm.android.learningwithnationalparks.fragments.ImageDetailFragment;
 import com.rdm.android.learningwithnationalparks.networkFlickr.FlickrPhoto;
 import com.rdm.android.learningwithnationalparks.networkFlickr.Photos;
 import com.rdm.android.learningwithnationalparks.R;
 import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import butterknife.ButterKnife;
 
 public class ImageDetailActivity extends AppCompatActivity {
@@ -45,7 +47,7 @@ public class ImageDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle state) {
+    protected void onSaveInstanceState(@NonNull Bundle state) {
         Log.i(LOG_TAG, "ImageDetailActivity :onSaveInstanceState");
         super.onSaveInstanceState(state);
         state.putParcelable(STATE_KEY, mListState);

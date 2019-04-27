@@ -7,10 +7,11 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.Arrays;
+
+import androidx.annotation.NonNull;
 
 public class LessonProvider extends ContentProvider {
     public static final String LOG_TAG = LessonProvider.class.getSimpleName();
@@ -87,7 +88,7 @@ public class LessonProvider extends ContentProvider {
      * Perform the query for the given URI. Use the given projection, selection, selection arguments, and sort order.
      */
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs,
                         String sortOrder) {
         // Get readable database
         SQLiteDatabase database = mDbHelper.getReadableDatabase();
@@ -140,7 +141,7 @@ public class LessonProvider extends ContentProvider {
      * Insert new data into the provider with the given ContentValues.
      */
     @Override
-    public Uri insert(Uri uri, ContentValues contentValues) {
+    public Uri insert(@NonNull Uri uri, ContentValues contentValues) {
 
         final int match = sUriMatcher.match(uri);
 

@@ -6,20 +6,19 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -27,25 +26,15 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
-import com.google.android.gms.maps.StreetViewPanorama;
-import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.StreetViewPanoramaOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.StreetViewPanoramaLocation;
+import com.google.android.material.snackbar.Snackbar;
 import com.rdm.android.learningwithnationalparks.R;
-import com.rdm.android.learningwithnationalparks.activities.ParkSearchActivity;
 import com.rdm.android.learningwithnationalparks.adapters.NationalInfoWindowAdapter;
 import com.rdm.android.learningwithnationalparks.networkMaps.GetNationalParksData;
-
-import static com.rdm.android.learningwithnationalparks.R.id.national_map;
-import butterknife.BindView;
-
 import static android.content.ContentValues.TAG;
-import static com.rdm.android.learningwithnationalparks.R.id.parallax;
-
 
 /**
  * Created by Rebecca McBath

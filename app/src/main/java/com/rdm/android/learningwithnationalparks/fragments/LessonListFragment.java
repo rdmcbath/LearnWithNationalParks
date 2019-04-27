@@ -8,13 +8,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,8 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.rdm.android.learningwithnationalparks.activities.LessonListActivity;
+import com.google.android.material.snackbar.Snackbar;
 import com.rdm.android.learningwithnationalparks.activities.SavedLessonActivity;
 import com.rdm.android.learningwithnationalparks.adapters.LessonPlanAdapter;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
@@ -34,10 +28,13 @@ import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlan;
 import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlanClient;
 import com.rdm.android.learningwithnationalparks.networkLessons.RetrofitLessonPlan;
 import com.rdm.android.learningwithnationalparks.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -95,7 +92,7 @@ public class LessonListFragment extends Fragment {
 
         if (data != null) {
             mLayoutManager = new LinearLayoutManager(getActivity());
-            mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mLayoutManager.setOrientation(RecyclerView.VERTICAL);
             mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
             mLessonPlanAdapter = new LessonPlanAdapter(lessonPlan, data, getActivity());
             mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);
@@ -190,7 +187,7 @@ public class LessonListFragment extends Fragment {
 	                mLessonPlanRecyclerView = rootView.findViewById(R.id.lesson_plan_recycler);
                     progressBar = rootView.findViewById(R.id.progress_bar);
                     mLayoutManager = new LinearLayoutManager(getActivity());
-	                mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+	                mLayoutManager.setOrientation(RecyclerView.VERTICAL);
 	                mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
                     mLessonPlanAdapter = new LessonPlanAdapter(lessonPlan, lessonPlan.getData(), getContext());
                     mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);
@@ -231,7 +228,7 @@ public class LessonListFragment extends Fragment {
 	                mLessonPlanRecyclerView = rootView.findViewById(R.id.lesson_plan_recycler);
 	                progressBar = rootView.findViewById(R.id.progress_bar);
 	                mLayoutManager = new LinearLayoutManager(getActivity());
-	                mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+	                mLayoutManager.setOrientation(RecyclerView.VERTICAL);
 	                mLessonPlanRecyclerView.setLayoutManager(mLayoutManager);
                     mLessonPlanAdapter = new LessonPlanAdapter(lessonPlan, lessonPlan.getData(), getContext());
                     mLessonPlanRecyclerView.setAdapter(mLessonPlanAdapter);

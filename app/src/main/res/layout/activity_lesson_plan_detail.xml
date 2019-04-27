@@ -32,5 +32,4 @@
             style="?android:attr/progressBarStyleLarge" />
 
     </FrameLayout>
-
 </LinearLayout>

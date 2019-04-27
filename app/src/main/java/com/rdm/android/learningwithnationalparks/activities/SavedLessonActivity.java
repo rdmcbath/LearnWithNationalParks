@@ -2,21 +2,18 @@ package com.rdm.android.learningwithnationalparks.activities;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
-
 import com.rdm.android.learningwithnationalparks.fragments.SavedLessonFragment;
 import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
 import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlan;
 import com.rdm.android.learningwithnationalparks.R;
-
 import java.util.List;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

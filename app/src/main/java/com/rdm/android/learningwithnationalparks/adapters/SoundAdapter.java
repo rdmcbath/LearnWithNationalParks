@@ -4,19 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.rdm.android.learningwithnationalparks.activities.SoundsListActivity;
 import com.rdm.android.learningwithnationalparks.R;
-
 import java.util.ArrayList;
-
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -92,8 +89,7 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.ViewHolder> 
             //get sound
             Sound currentSound = sounds.get(getAdapterPosition());
 
-            if (context instanceof SoundsListActivity) {
-                SoundsListActivity soundsListActivity = ((SoundsListActivity) context);
+                SoundsListActivity soundsListActivity = (SoundsListActivity) context;
                 currentSound.getAudioResourceId();
                 soundsListActivity.handleSoundClick(currentSound);
 
@@ -104,11 +100,9 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.ViewHolder> 
                 }
             }
         }
-    }
 
     @Override
     public int getItemCount() {
-
         return sounds.size();
     }
 }

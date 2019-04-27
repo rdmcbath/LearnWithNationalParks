@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sound_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
-        android:divider="#CCCCCC"></android.support.v7.widget.RecyclerView>
+        android:divider="#CCCCCC">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

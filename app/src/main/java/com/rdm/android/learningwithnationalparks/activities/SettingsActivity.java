@@ -6,11 +6,11 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-
 import com.rdm.android.learningwithnationalparks.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
+ * NOT CURRENTLY BEING USED
  * SettingsActivity is a PreferenceActivity with a single setting: sort order
  * * The user has selected Settings from the menu.
  */
