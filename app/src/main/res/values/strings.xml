@@ -166,6 +166,8 @@
     <string name="image_detail_activity_analytics">image detail activity</string>
     <string name="sound_activity_analytics">sound activity</string>
     <string name="park_activity_analytics">map activity</string>
+    <string name="widget_install_analytics">widget installed</string>
+    <string name="widget_removed_analytics">widget removed</string>
 
     <!-- Strings for API keys National Parks and Flickr  -->
     <string name="api_key_nps">ykqtU0ep0jqNDHp2TcNfXDzO7pKQMznBZsJk0kEu</string>

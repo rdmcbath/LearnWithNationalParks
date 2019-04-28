@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StackWidgetProvider extends AppWidgetProvider {
+
+    private FirebaseAnalytics analytics;
 
     public void onWidgetUpdate(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         Log.d("WIDGET", "updating app widget");
@@ -89,13 +92,23 @@ public class StackWidgetProvider extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         super.onDisabled(context);
-
         Log.d("WIDGET", "widget removed from homescreen");
+
+        // When user removes the widget from the home screen, record the event on google analytics
+        analytics = FirebaseAnalytics.getInstance(context.getApplicationContext());
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, context.getString(R.string.widget_removed_analytics));
+        analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-
         Log.d("WIDGET", "widget installed on home screen");
+
+        // When user installs the widget on the home screen, record the event on google analytics
+        analytics = FirebaseAnalytics.getInstance(context.getApplicationContext());
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, context.getString(R.string.widget_install_analytics));
+        analytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 }
