@@ -35,7 +35,7 @@ public class SavedLessonAdapter extends RecyclerView.Adapter<SavedLessonAdapter.
     public SavedLessonAdapter(List<Datum> data, Context context) {
         this.context = context;
 
-        Cursor cursor = context.getContentResolver()
+        cursor = context.getContentResolver()
                 .query(LessonContract.SavedEntry.CONTENT_URI, null, null, null, null);
 
         setCursor(cursor);
@@ -43,6 +43,7 @@ public class SavedLessonAdapter extends RecyclerView.Adapter<SavedLessonAdapter.
 
     public void setCursor(Cursor cursor) {
         this.cursor = cursor;
+
         notifyDataSetChanged();
     }
 
@@ -87,7 +88,7 @@ public class SavedLessonAdapter extends RecyclerView.Adapter<SavedLessonAdapter.
             itemView.setOnClickListener(this);
         }
 
-        public void bindModel(Cursor cursor) {
+        void bindModel(Cursor cursor) {
             savedLessonTitle.setText(cursor.getString(cursor.getColumnIndex
                     (LessonContract.SavedEntry.COLUMN_TITLE)));
             savedLessonObjective.setText(cursor.getString(cursor.getColumnIndex

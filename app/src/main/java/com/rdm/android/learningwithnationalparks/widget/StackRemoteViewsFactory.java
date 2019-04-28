@@ -25,12 +25,11 @@ import java.util.concurrent.ExecutionException;
 import retrofit2.Call;
 
 public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-    private FlickrPhoto flickrPhoto;
     private List<FlickrPhoto> mPhotoItems = new ArrayList<>();
     private Context mContext;
     private int mAppWidgetId;
 
-    public StackRemoteViewsFactory(Context context, Intent intent) {
+    StackRemoteViewsFactory(Context context, Intent intent) {
         Log.d("WIDGET", "RemoteViewsFactory Constructor");
         mContext = context;
     }
@@ -79,7 +78,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         // Next, we set a fill-intent which will be used to fill-in the pending intent template
         // which is set on the collection view in StackWidgetProvider.
         Intent fillInIntent = new Intent();
-        flickrPhoto = mPhotoItems.get(position);
+        FlickrPhoto flickrPhoto = mPhotoItems.get(position);
         fillInIntent.putExtra("IMAGE", flickrPhoto);
         rv.setOnClickFillInIntent(R.id.widget_click_item, fillInIntent);
         Log.d("WIDGET", "FillInIntent Called");
@@ -100,7 +99,9 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
         try {
             FlickrResponse flickrResponse = call.execute().body();
-            mPhotoItems = flickrResponse.getPhotos().getPhotoItems();
+            if (flickrResponse != null) {
+                mPhotoItems = flickrResponse.getPhotos().getPhotoItems();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

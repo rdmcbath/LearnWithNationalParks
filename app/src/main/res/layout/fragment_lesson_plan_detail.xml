@@ -78,7 +78,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:contentDescription="@string/fab_save"
-        app:fabSize="mini"
+        app:fabSize="normal"
         android:stateListAnimator="@animator/fab_state_list_anim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

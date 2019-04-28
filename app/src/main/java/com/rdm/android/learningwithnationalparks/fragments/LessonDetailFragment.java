@@ -1,8 +1,11 @@
 package com.rdm.android.learningwithnationalparks.fragments;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,10 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -27,11 +34,15 @@ import com.rdm.android.learningwithnationalparks.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 public class LessonDetailFragment extends Fragment implements View.OnClickListener {
     private static final String LOG_TAG = LessonDetailFragment.class.getSimpleName();
@@ -60,6 +71,7 @@ public class LessonDetailFragment extends Fragment implements View.OnClickListen
     public LessonDetailFragment() {
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(LOG_TAG, "LessonDetailFragment onCreateView");
 
@@ -80,8 +92,12 @@ public class LessonDetailFragment extends Fragment implements View.OnClickListen
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolbar);
         Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        webView.setInitialScale(1);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
+        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        webView.setScrollbarFadingEnabled(false);
         webView.loadUrl(datum.getUrl());
         Log.i(LOG_TAG, "WebView Url: " + datum.getUrl());
 
@@ -117,7 +133,7 @@ public class LessonDetailFragment extends Fragment implements View.OnClickListen
     }
 
     // Helper method to assist in determining if the lesson is already in the saved table
-    public boolean isLessonSaved() {
+    private boolean isLessonSaved() {
         String title = datum.getTitle();
 
         Long currentLessonId = datum.getId();

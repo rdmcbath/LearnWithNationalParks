@@ -39,7 +39,7 @@ public class AnalyticsUtils {
 	 */
 	public void setScreenName(@NonNull final Activity activity, final String screenName) {
 		Log.d(LOG_TAG, "Firebase Analytics: setScreenName() /screenName = " + screenName);
-		// TODO: 1/25/19 Improve the screen names to match what the pages are really called
+
 		if (activity == null) return;
 		if (this.mFirebaseAnalytics == null) {
 			this.mFirebaseAnalytics = FirebaseAnalytics.getInstance(activity.getApplicationContext());

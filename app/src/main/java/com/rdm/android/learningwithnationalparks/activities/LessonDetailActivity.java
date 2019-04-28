@@ -9,6 +9,8 @@ import com.rdm.android.learningwithnationalparks.networkLessons.Datum;
 import com.rdm.android.learningwithnationalparks.networkLessons.LessonPlan;
 import com.rdm.android.learningwithnationalparks.R;
 import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,7 +43,9 @@ public class LessonDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Bundle data = getIntent().getExtras();
-        datum = data.getParcelable(KEY_LESSON_PLAN);
+        if (data != null) {
+            datum = data.getParcelable(KEY_LESSON_PLAN);
+        }
 
         Bundle args = new Bundle();
         args.putParcelable(KEY_LESSON_PLAN, datum);
@@ -59,7 +63,7 @@ public class LessonDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle state) {
+    protected void onSaveInstanceState(@NonNull Bundle state) {
         Log.i(LOG_TAG, "LessonDetailActivity :onSaveInstanceState");
         mLayoutManager = new LinearLayoutManager(this);
         super.onSaveInstanceState(state);
