@@ -29,7 +29,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="24sp"
-            android:textStyle="bold"
+            style="@style/CategoryActivityStyle"
             tools:text="Title"/>
 
         <TextView
@@ -44,7 +44,7 @@
             android:textAlignment="textStart"
             android:textColor="#404040"
             android:textSize="14sp"
-            android:textStyle="bold"
+            style="@style/CategoryActivityStyle"
             tools:text="Objective"/>
 
         <TextView
@@ -56,7 +56,7 @@
             android:textAlignment="textStart"
             android:textColor="#404040"
             android:textSize="14sp"
-            android:textStyle="bold"
+            style="@style/CategoryActivityStyle"
             tools:text="Grade Level"/>
 
         <TextView
@@ -68,7 +68,7 @@
             android:textAlignment="textStart"
             android:textColor="#404040"
             android:textSize="14sp"
-            android:textStyle="bold"
+            style="@style/CategoryActivityStyle"
             tools:text="Subject"/>
 
         <TextView
@@ -81,7 +81,7 @@
             android:textAlignment="textStart"
             android:textColor="#404040"
             android:textSize="14sp"
-            android:textStyle="bold"
+            style="@style/CategoryActivityStyle"
             tools:text="Duration"/>
 
     </LinearLayout>

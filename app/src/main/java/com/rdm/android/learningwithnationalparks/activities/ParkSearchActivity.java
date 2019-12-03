@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -78,6 +79,10 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 	FrameLayout frameLayout;
 	@BindView(R.id.map_type_icon)
 	Button button;
+	@BindView(R.id.toolbar_top)
+	Toolbar toolbar;
+	@BindView(R.id.toolbar_title)
+	TextView toolbarTitle;
 	public static final int REQUEST_LOCATION = 199;
 	private long UPDATE_INTERVAL = 15000;  /* 15 secs */
 	private long FASTEST_INTERVAL = 5000; /* 5 secs */
@@ -106,7 +111,9 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 		setContentView(R.layout.activity_park_search);
 		ButterKnife.bind(this);
 
-		Toolbar toolbar = findViewById(R.id.tool_bar);
+		setSupportActionBar(toolbar);
+		toolbarTitle.setText(R.string.park_search_toolbar_title);
+
 		setSupportActionBar(toolbar);
 		ab = getSupportActionBar();
 		if (ab != null) {
@@ -142,25 +149,14 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-
 			case R.id.action_local_view:
-
 				sharedPrefs.edit().putInt(PREFS_VIEW_OPTION, VIEW_LOCAL).apply();
-				if (ab != null) {
-					ab.setTitle("Parks Near You");
-				}
 				showLocalView();
-
 				return true;
 
 			case R.id.action_national_view:
-
 				sharedPrefs.edit().putInt(PREFS_VIEW_OPTION, VIEW_NATIONAL).apply();
-				if (ab != null) {
-					ab.setTitle("National Parks");
-				}
 				showNationalView();
-
 				return true;
 
 			case android.R.id.home:
@@ -240,7 +236,7 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 	}
 
 	@Override
-	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		Log.d(TAG, "onRequestPermissionsResult()");
 
 		switch (requestCode) {
@@ -322,8 +318,8 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 		mCurrLocationMarker = mMap.addMarker(markerOptions);
 
 		// Move map camera
-//		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 9));
-//      Snackbar.make(getWindow().getDecorView().getRootView(), R.string.current_location, Snackbar.LENGTH_LONG).show();
+		//		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 9));
+		//      Snackbar.make(getWindow().getDecorView().getRootView(), R.string.current_location, Snackbar.LENGTH_LONG).show();
 
 		Log.d(LOG_TAG, "onLocationChanged: " + String.format("latitude:%.3f longitude:%.3f", latitude, longitude));
 
@@ -336,7 +332,7 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 	}
 
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(@NonNull Bundle outState) {
 		Log.d(LOG_TAG, "onSaveInstanceState");
 		super.onSaveInstanceState(outState);
 	}
@@ -603,7 +599,3 @@ public class ParkSearchActivity extends AppCompatActivity implements OnMapReadyC
 		popup.show();
 	}
 }
-
-
-
-

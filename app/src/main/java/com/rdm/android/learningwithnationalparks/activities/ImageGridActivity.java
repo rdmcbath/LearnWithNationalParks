@@ -27,6 +27,10 @@ public class ImageGridActivity extends AppCompatActivity {
     @BindView(R.id.empty_view)
     @Nullable
     TextView mEmptyView;
+    @BindView(R.id.toolbar_top)
+    Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
     private String STATE_KEY = "list_state";
     private Parcelable mListState;
     private FlickrResponse flickrResponse;
@@ -42,18 +46,22 @@ public class ImageGridActivity extends AppCompatActivity {
         setContentView(R.layout.activity_images);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        toolbarTitle.setText(R.string.image_grid_toolbar_title);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_top);
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         ImageGridFragment imageGridFragment = new ImageGridFragment();
         imageGridFragment.setPhotos(photos);
         imageGridFragment.setFlickrPhoto(photoItems);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.image_grid_container, imageGridFragment)
                 .commit();
-
-        Toolbar toolbar = findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.image_grid_toolbar_title);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
 
 	    analytics().reportEventFB(getApplicationContext(), getString(R.string.image_activity_analytics));
     }

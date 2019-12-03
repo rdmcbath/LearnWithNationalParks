@@ -18,6 +18,7 @@
     <string name="maps_content_desc">maps_image</string>
 
     <!-- Strings for ParkSearch Activities -->
+    <string name="park_search_toolbar_title">Explore Parks</string>
     <string name="park_search_label">Parks Map</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_location_permission">Location Permission Needed</string>
@@ -33,7 +34,9 @@
     <string name="location_not_enabled">Location not enabled, user cancelled.</string>
     <string name="fab_find_nearby_parks">Find nearby parks button</string>
     <string name="image_from_places">US National Parks</string>
-    <string name="info_window_panorama">Click for Panorama View!</string>
+    <string name="info_window_extra_content">Click for panorama view!</string>
+    <string name="info_window_panorama">Panorama</string>
+    <string name="info_window_navigate">Navigate</string>
     <string name="info_window_images">Click for Pictures!</string>
     <string name="lat_long_snippet">Lat: %1$.5f, Long: %2$.5f</string>
     <string name="dropped_pin">Dropped Pin</string>
@@ -50,12 +53,12 @@
     <string name="map_search_action_localparks">Show parks near you</string>
 
     <!-- Strings for LessonPlan Activities -->
-    <string name="lesson_list_toolbar_title">Lesson Plans</string>
+    <string name="lesson_list_toolbar_title">Lessons</string>
     <string name="lesson_list_background">background image for lesson plan list</string>
     <string name="title_lesson_list">Lesson Plans</string>
     <string name="no_network">No Network Found.</string>
-    <string name="sorted_by_title">Sort by Title</string>
-    <string name="sorted_by_subject">Sort by Subject</string>
+    <string name="sorted_by_title">Sorted by Title</string>
+    <string name="sorted_by_subject">Sorted by Subject</string>
     <string name="select_lesson_plan">Select a lesson plan.</string>
     <string name="header_image">Lesson Plan Header Image</string>
     <string name="web_content">Web content for lesson plan</string>
@@ -66,11 +69,10 @@
     <string name="lesson_search_action_title">Title (default)</string>
     <string name="lesson_search_action_subject">Subject</string>
     <string name="lesson_search_action_saved">Saved</string>
-
     <string name="settings_sort_by_label">Sort By</string>
     <string name="settings_sort_by_key" translatable="false">sort_by</string>
-    <string name="settings_sort_by_default" translatable="false">
-        @string/settings_sort_by_title_label</string>
+    <string name="settings_sort_by_default" translatable="false">@string/settings_sort_by_title_label</string>
+
     <!-- Strings for sort_by title option  -->
     <string name="settings_sort_by_title_label">Title</string>
     <string name="settings_sort_by_title_value" translatable="false">Title</string>
@@ -96,7 +98,7 @@
     <string name="nothing_to_delete">There were no saved lessons to delete.</string>
 
     <!-- Strings for Images Activities -->
-    <string name="image_grid_toolbar_title">NPS Flickr Photostream</string>
+    <string name="image_grid_toolbar_title">NPS Photostream</string>
     <string name="title_sights_grid">NPS Flickr Photostream</string>
     <string name="fab_share">Share this image</string>
     <string name="no_image_found">No image found.</string>

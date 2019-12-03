@@ -9,10 +9,10 @@ android {
 
     signingConfigs {
         config {
-            keyAlias 'ignore'
-            keyPassword 'ignore'
-            storeFile file('ignore')
-            storePassword 'ignore'
+            keyAlias 'keyrdm'
+            keyPassword 'rdm1451'
+            storeFile file('/Users/rebecca.mcbath/Desktop/Personal/NationalParksGooglePrivateKeyandKeystoreFile/keystore.jks')
+            storePassword 'rdm1451'
         }
     }
     compileSdkVersion 28
@@ -22,8 +22,8 @@ android {
         applicationId "com.rdm.android.learningwithnationalparks"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 7
-        versionName "4.3"
+        versionCode 8
+        versionName "4.4"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -73,8 +73,8 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.google.firebase:firebase-crash:16.2.1'
-    implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    implementation 'com.google.firebase:firebase-core:17.2.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         // Necessary if your app targets Marshmallow (since Espresso
         // hasn't moved to Marshmallow yet)
@@ -88,11 +88,11 @@ dependencies {
         exclude module: 'recyclerview-v7'
     }
     testImplementation 'junit:junit:4.13-beta-2'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.1.0-alpha05'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha02'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'androidx.fragment:fragment:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.fragment:fragment:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.emoji:emoji:1.0.0'
@@ -106,13 +106,13 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'com.jakewharton:butterknife:10.1.0'
     implementation 'org.parceler:parceler-api:1.1.12'
-    implementation 'com.google.android.gms:play-services-analytics:16.0.8'
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.libraries.places:places:1.1.0'
+    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.libraries.places:places:2.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     annotationProcessor 'org.parceler:parceler:1.1.12'
-    implementation 'androidx.loader:loader:1.0.0'
+    implementation 'androidx.loader:loader:1.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

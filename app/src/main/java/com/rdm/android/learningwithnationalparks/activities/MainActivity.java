@@ -24,7 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.rdm.android.learningwithnationalparks.fragments.LocalParkSearchFragment;
 import com.rdm.android.learningwithnationalparks.R;
 import com.rdm.android.learningwithnationalparks.utils.AnalyticsUtils;
-import java.util.Objects;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         GoogleApiClient.OnConnectionFailedListener, ResultCallback<LocationSettingsResult> {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    @BindView(R.id.main_frame_layout)
-    FrameLayout frameLayout;
     @BindView(R.id.lesson_plan_text_view)
     TextView lessonPlanView;
     @BindView(R.id.sights_text_view)
@@ -56,8 +54,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     ImageView soundsImageView;
     @BindView(R.id.park_search_image)
     ImageView searchImageView;
-    @BindView(R.id.tool_bar)
+    @BindView(R.id.toolbar_top)
     Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
     private Parcelable mListState;
     private String STATE_KEY = "list_state";
     public LinearLayoutManager mLayoutManager;
@@ -75,15 +75,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.main_toolbar_title);
+        toolbarTitle.setText(R.string.main_toolbar_title);
 
-        lessonPlanView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("LOG_TAG", "OnClick in MainActivity LessonPlanView called");
-                Intent lessonListIntent = new Intent(MainActivity.this, LessonListActivity.class);
-                startActivity(lessonListIntent);
-            }
+        lessonPlanView.setOnClickListener(view -> {
+            Log.i("LOG_TAG", "OnClick in MainActivity LessonPlanView called");
+            Intent lessonListIntent = new Intent(MainActivity.this, LessonListActivity.class);
+            startActivity(lessonListIntent);
         });
 
         lessonPlanImageView.setOnClickListener(new OnClickListener() {
@@ -227,9 +224,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CHECK_SETTINGS) {
             if (resultCode == RESULT_OK) {
-                Snackbar.make(frameLayout, R.string.location_enabled, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getWindow().getDecorView().getRootView(), R.string.location_enabled, Snackbar.LENGTH_LONG).show();
             } else {
-                Snackbar.make(frameLayout, R.string.location_not_enabled, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getWindow().getDecorView().getRootView(), R.string.location_not_enabled, Snackbar.LENGTH_LONG).show();
             }
         }
     }

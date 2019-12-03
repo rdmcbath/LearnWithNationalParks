@@ -1,21 +1,26 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/primaryText</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="Base.Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+<!--    <style name="SplashTheme" parent="AppTheme">-->
+<!--        <item name="android:windowBackground">@drawable/test_splash_image_gimp</item>-->
+<!--        <item name="android:colorBackground">@color/whiteTwo</item>-->
+<!--    </style>-->
 
     <style name="MainActivityStyle">
         <item name="android:layout_width">match_parent</item>
@@ -24,7 +29,8 @@
         <item name="android:padding">16dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 
     <style name="CategoryActivityStyle">
@@ -34,7 +40,8 @@
         <item name="android:padding">16dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 
     <style name="MaterialTheme.Map.Button" parent="AppTheme">
@@ -42,5 +49,32 @@
         <item name="android:layout_marginBottom">@dimen/margin_default</item>
         <item name="android:background">@drawable/map_button</item>
     </style>
+
+    <style name="CustomTextRegular">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingMultiplier">1.10</item>
+        <item name="android:textColorLink">@color/colorAccent</item>
+    </style>
+
+    <style name="CustomTextBold">
+        <item name="android:fontFamily">@font/nunito_semi_bold</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineSpacingMultiplier">1.10</item>
+        <item name="android:textColorLink">@color/colorAccent</item>
+    </style>
+
+    <!-- Toolbar style -->
+    <style name="CustomToolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:elevation">8dp</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:minHeight">?android:attr/actionBarSize</item>
+        <item name="android:titleTextAppearance">@style/CustomTextRegular</item>
+    </style>
+
 
 </resources>

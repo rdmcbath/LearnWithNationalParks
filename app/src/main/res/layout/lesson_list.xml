@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/tool_bar"
+            android:id="@+id/toolbar_top"
             layout="@layout/tool_bar">
         </include>
 

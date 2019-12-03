@@ -23,4 +23,6 @@
     <dimen name="widget_margin">8dp</dimen>
     <dimen name="margin_default">8dp</dimen>
 
+    <dimen name="horizontal_margin">16dp</dimen>
+
 </resources>

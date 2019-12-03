@@ -9,24 +9,23 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/map_window_image_local"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
             android:contentDescription="@string/app_name"
             android:src="@mipmap/ic_launcher"/>
 
         <LinearLayout
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:gravity="top"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:orientation="vertical">
 
             <TextView
@@ -48,10 +47,23 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/map_window_extra_content_local"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        tools:text="@string/info_window_panorama"/>
+        android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/map_window_extra_content"
+        style="@style/CustomTextRegular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_button_dark"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        tools:text="@string/info_window_extra_content"/>
+
+    </LinearLayout>
 </LinearLayout>

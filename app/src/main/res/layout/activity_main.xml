@@ -26,51 +26,51 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/tool_bar"
+                android:id="@+id/toolbar_top"
                 layout="@layout/tool_bar"/>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/lesson_plan_text_view"
-                        style="@style/MainActivityStyle"
-                        android:layout_width="match_parent"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginEnd="@dimen/main_activity_margin_end"
-                        android:background="@drawable/background_lessons"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="end|center_vertical"
-                        android:text="@string/main_lesson_plans_label"
-                        android:textColor="@android:color/white"/>
-
-                    <ImageView
-                        android:id="@+id/lesson_plan_image"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center_vertical"
-                        android:padding="16dp"
-                        android:background="@drawable/background_circle"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:contentDescription="@string/lesson_plan_content_desc"
-                        android:src="@drawable/ic_local_library_24dp"/>
-
-                </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lesson_plan_text_view"
+                    style="@style/MainActivityStyle"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginEnd="@dimen/main_activity_margin_end"
+                    android:background="@drawable/background_lessons"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="end|center_vertical"
+                    android:text="@string/main_lesson_plans_label"
+                    android:textColor="@android:color/white"/>
+
+                <ImageView
+                    android:id="@+id/lesson_plan_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="16dp"
+                    android:background="@drawable/background_circle"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/lesson_plan_content_desc"
+                    android:src="@drawable/ic_local_library_24dp"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:orientation="horizontal">
@@ -106,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:orientation="horizontal">

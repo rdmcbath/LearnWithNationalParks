@@ -37,7 +37,7 @@ public class SavedLessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saved_lessons);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_top);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.saved_lesson_toolbar_title);
         ActionBar ab = getSupportActionBar();

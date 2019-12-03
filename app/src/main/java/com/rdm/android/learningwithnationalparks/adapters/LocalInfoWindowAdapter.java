@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,13 +53,10 @@ public class LocalInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 		TextView description = v.findViewById(R.id.map_window_snippet_local);
 		description.setText(marker.getSnippet());
 
-		marker.setTag("localPark");
+		Button panorama = v.findViewById(R.id.map_window_extra_content);
+		panorama.setText(R.string.info_window_extra_content);
 
-		TextView extraContent = v.findViewById(R.id.map_window_extra_content_local);
-		extraContent.setText(R.string.info_window_panorama);
-
-		ImageView icon = v.findViewById(R.id.map_window_image_local);
-
+//		ImageView icon = v.findViewById(R.id.map_window_image_local);
 //		Uri imageUri = Uri.parse(marker.getId());
 //
 //		Glide.with(mContext)

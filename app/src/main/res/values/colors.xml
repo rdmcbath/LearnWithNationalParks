@@ -7,6 +7,10 @@
     <color name="lightestBlue">#B0C4DE</color>
     <color name="darkGrey">#696969</color>
 
+    <color name="secondary_text">#8a8a8a</color>
+    <color name="primaryText">#4a4a4a</color>
+
+    <color name="whiteTwo">#f3f3f3</color>
 
     <!-- Background color for the sounds category -->
     <color name="category_sounds">#FD8E09</color>

@@ -6,6 +6,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.TextView;
+
 import com.rdm.android.learningwithnationalparks.adapters.Sound;
 import com.rdm.android.learningwithnationalparks.fragments.SoundsListFragment;
 import com.rdm.android.learningwithnationalparks.R;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SoundsListActivity extends AppCompatActivity {
@@ -33,6 +36,10 @@ public class SoundsListActivity extends AppCompatActivity {
     private String STATE_KEY = "list_state";
     private Parcelable mListState;
 	private AnalyticsUtils analytics;
+    @BindView(R.id.toolbar_top)
+    Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +47,19 @@ public class SoundsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sounds);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        toolbarTitle.setText(R.string.sounds_toolbar_title);
+
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         if (sounds != null) {
 
             // Create and setup the {@link AudioManager} to request audio focus
             audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
-            Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle(R.string.sounds_toolbar_title);
-            ActionBar ab = getSupportActionBar();
-            ab.setDisplayHomeAsUpEnabled(true);
 
             SoundsListFragment soundsListFragment = new SoundsListFragment();
             soundsListFragment.setSounds(sounds);

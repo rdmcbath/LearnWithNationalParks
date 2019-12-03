@@ -24,6 +24,11 @@ import butterknife.ButterKnife;
 
 public class LessonListActivity extends AppCompatActivity {
     private static final String LOG_TAG = LessonListActivity.class.getSimpleName();
+
+	@BindView(R.id.toolbar_top)
+	Toolbar toolbar;
+	@BindView(R.id.toolbar_title)
+	TextView toolbarTitle;
     @BindView(R.id.empty_view)
     @Nullable
     TextView mEmptyView;
@@ -47,6 +52,15 @@ public class LessonListActivity extends AppCompatActivity {
 	    setContentView(R.layout.lesson_list);
 	    ButterKnife.bind(this);
 
+	    setSupportActionBar(toolbar);
+	    toolbarTitle.setText(R.string.lesson_list_toolbar_title);
+	    Toolbar toolbar = findViewById(R.id.toolbar_top);
+	    setSupportActionBar(toolbar);
+	    ActionBar ab = getSupportActionBar();
+	    if (ab != null) {
+		    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	    }
+
 	    res = getResources();
 
 	    LessonListFragment lessonListFragment = new LessonListFragment();
@@ -56,14 +70,6 @@ public class LessonListActivity extends AppCompatActivity {
 			    .add(R.id.lesson_list_container, lessonListFragment, LessonListFragment.class.getSimpleName())
 			    .addToBackStack(LessonListFragment.class.getSimpleName())
 			    .commit();
-
-	    Toolbar toolbar = findViewById(R.id.tool_bar);
-	    setSupportActionBar(toolbar);
-	    ActionBar ab = getSupportActionBar();
-	    if (ab != null) {
-		    getSupportActionBar().setTitle(R.string.lesson_list_toolbar_title);
-		    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	    }
 
 	    analytics().reportEventFB(getApplicationContext(), getString(R.string.lesson_activity_analytics));
     }

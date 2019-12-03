@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:contentDescription="TODO" android:src="@mipmap/ic_launcher" />
+                android:contentDescription="widget image"
+                android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/title_text"

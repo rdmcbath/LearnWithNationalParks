@@ -4,6 +4,10 @@
     android:shape="oval">
 
     <solid
+        android:color="@color/whiteTwo" />
+
+    <stroke
+        android:width="2dp"
         android:color="@color/lightestBlue"/>
 
     <size
