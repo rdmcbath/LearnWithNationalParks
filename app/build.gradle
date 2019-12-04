@@ -22,8 +22,8 @@ android {
         applicationId "com.rdm.android.learningwithnationalparks"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 8
-        versionName "4.4"
+        versionCode 9
+        versionName "4.4.1"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
