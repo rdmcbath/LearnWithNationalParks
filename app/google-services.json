@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "81803227593",
+    "firebase_url": "https://learningwithnationalparks.firebaseio.com",
+    "project_id": "learningwithnationalparks",
+    "storage_bucket": "learningwithnationalparks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81803227593:android:413691edb275e8fd",
+        "android_client_info": {
+          "package_name": "com.rdm.android.learningwithnationalparks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81803227593-rsj3qv5qnt0cqarjg6t7h1v87gciljbk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rdm.android.learningwithnationalparks",
+            "certificate_hash": "bbed959020983e069002453f7d82c434c5784ab9"
+          }
+        },
+        {
+          "client_id": "81803227593-gkh4bb6chtl0ff1vdk2oa6kvvgfjkv1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMdllnL6wEYRpVkTUIa5wpbijHxeBq-ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81803227593-gkh4bb6chtl0ff1vdk2oa6kvvgfjkv1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
